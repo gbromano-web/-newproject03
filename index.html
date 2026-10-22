@@ -981,6 +981,14 @@ footer{
             <div class="del-suggest" onclick="selectAddress('Palm Jumeirah — Dubai')">📍 Palm Jumeirah — Dubai</div>
             <div class="del-suggest" onclick="selectAddress('Jumeirah — Dubai')">📍 Jumeirah — Dubai</div>
             <div class="del-suggest" onclick="selectAddress('Al Barsha — Dubai')">📍 Al Barsha — Dubai</div>
+            <div class="del-suggest" onclick="selectAddress('Ecity — Dubai Silicon Oasis')">📍 Ecity — Dubai Silicon Oasis</div>
+            <div class="del-suggest" onclick="selectAddress('Deira — Dubai')">📍 Deira — Dubai</div>
+            <div class="del-suggest" onclick="selectAddress('Bur Dubai')">📍 Bur Dubai</div>
+            <div class="del-suggest" onclick="selectAddress('Al Quoz — Dubai')">📍 Al Quoz — Dubai</div>
+            <div class="del-suggest" onclick="selectAddress('Mirdif — Dubai')">📍 Mirdif — Dubai</div>
+            <div class="del-suggest" onclick="selectAddress('Al Nahda — Dubai')">📍 Al Nahda — Dubai</div>
+            <div class="del-suggest" onclick="selectAddress('Dubai Hills Estate')">📍 Dubai Hills Estate</div>
+            <div class="del-suggest" onclick="selectAddress('Arabian Ranches — Dubai')">📍 Arabian Ranches — Dubai</div>
           </div>
           <!-- Confirm button -->
           <div id="del-confirm" style="display:none;margin-top:14px">
@@ -1015,10 +1023,21 @@ footer{
 <script>
 function filterSuggestions(val){
   const box = document.getElementById('suggestions');
-  box.style.display = 'block';
+  const confirm = document.getElementById('del-confirm');
+  if(val.trim()===''){
+    box.style.display='none';
+    confirm.style.display='none';
+    return;
+  }
+  box.style.display='block';
+  let anyVisible=false;
   document.querySelectorAll('.del-suggest').forEach(el=>{
-    el.style.display = val==='' || el.textContent.toLowerCase().includes(val.toLowerCase()) ? 'flex' : 'none';
+    const show = el.textContent.toLowerCase().includes(val.toLowerCase());
+    el.style.display = show ? 'block' : 'none';
+    if(show) anyVisible=true;
   });
+  // always show confirm so user can order any custom address
+  confirm.style.display='block';
 }
 function selectAddress(addr){
   document.getElementById('delivery-input').value = addr;
