@@ -978,6 +978,7 @@ footer{
               style="border:none;outline:none;font-size:15px;font-weight:500;color:#122219;width:100%;background:transparent;font-family:inherit"
               oninput="filterSuggestions(this.value)"
               onfocus="document.getElementById('suggestions').style.display='block'"
+              onkeydown="if(event.key==='Enter'){event.preventDefault();const v=sanitizeInput(this.value);if(v){document.getElementById('suggestions').style.display='none';document.getElementById('del-confirm').style.display='block';updateMap(v);}}"
             />
           </div>
           <!-- Suggestions -->
@@ -1014,7 +1015,7 @@ footer{
     <div class="reveal" style="margin-top:16px;border-radius:20px;overflow:hidden;box-shadow:0 8px 32px rgba(18,34,25,.12);max-width:100%;margin-left:auto;margin-right:auto;position:relative;height:420px;min-height:420px">
       <iframe
         src="https://maps.google.com/maps?q=25.2175,55.2930&z=15&output=embed"
-        width="100%" height="100%" style="border:0;display:block;position:absolute;top:0;left:0" allowfullscreen="" loading="lazy"
+        id="delivery-map" width="100%" height="100%" style="border:0;display:block;position:absolute;top:0;left:0" allowfullscreen="" loading="lazy"
         referrerpolicy="no-referrer-when-downgrade" title="Nasmat Ward Gifts location — Zabeel Tower, Sheikh Zayed Road, Dubai">
       </iframe>
       <!-- blocks popup clicks while keeping map visible -->
@@ -1050,9 +1051,17 @@ function filterSuggestions(val){
   confirmBox.style.display='block';
 }
 function selectAddress(addr){
-  document.getElementById('delivery-input').value = sanitizeInput(addr);
+  const safe = sanitizeInput(addr);
+  document.getElementById('delivery-input').value = safe;
   document.getElementById('suggestions').style.display = 'none';
   document.getElementById('del-confirm').style.display = 'block';
+  updateMap(safe);
+}
+function updateMap(addr){
+  const mapFrame = document.getElementById('delivery-map');
+  if(!mapFrame) return;
+  const q = encodeURIComponent(addr + ', Dubai, UAE');
+  mapFrame.src = 'https://maps.google.com/maps?q=' + q + '&z=15&output=embed';
 }
 function confirmDelivery(){
   const raw = document.getElementById('delivery-input').value;
