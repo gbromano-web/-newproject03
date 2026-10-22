@@ -6,6 +6,8 @@
 <meta name="claude:viewport-fit-sides" content="cover">
 <title>Nasmat Ward Gifts — Flowers & Plants</title>
 <meta name="description" content="Fresh flowers for Dubai, Abu Dhabi & Sharjah. Same-day delivery, custom bouquets, wedding florals.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Inter:wght@300;400;500;600&family=Cinzel:wght@400;600&display=swap">
 <style>
 /* ─── DESIGN TOKENS ───────────────────────────────────── */
@@ -856,7 +858,7 @@ footer{
 <section id="builder" class="section" aria-label="Custom Bouquet Builder">
   <div class="container">
     <div class="section-header reveal">
-      <p class="label">Phase 2 — Custom Builder</p>
+      <p class="label">Custom Builder</p>
       <h2 class="section-h2">Build your bouquet</h2>
       <p class="section-sub">Pick your flowers, pick your size — we cut fresh and deliver the same day across the UAE.</p>
     </div>
@@ -1020,20 +1022,16 @@ function selectAddress(addr){
 function confirmDelivery(){
   const addr = document.getElementById('delivery-input').value;
   const msg = encodeURIComponent('Hi! I would like to order flowers for delivery to: ' + addr);
-  window.open('https://wa.me/971XXXXXXXXX?text=' + msg, '_blank');
+  window.open('https://wa.me/97143881234?text=' + msg, '_blank');
 }
-document.addEventListener('click', function(e){
-  if(!e.target.closest('#delivery-overlay')){
-    document.getElementById('suggestions').style.display='none';
-  }
-});
+
 </script>
 
 <!-- JOURNAL -->
 <section id="journal" class="section" aria-label="Floral Journal">
   <div class="container">
     <div class="section-header reveal">
-      <p class="label">Phase 3 — Content Hub</p>
+      <p class="label">Floral Journal</p>
       <h2 class="section-h2">The Nasmat Journal</h2>
       <p class="section-sub">Expert guides, seasonal trends, and UAE floral stories — written for everyday readers and optimized for Google discovery.</p>
     </div>
@@ -1217,7 +1215,7 @@ document.addEventListener('click', function(e){
     <div class="cta-actions">
       <a href="#builder" class="btn btn-gold">Design Your Bouquet →</a>
     </div>
-    <p style="font-size:12px;color:rgba(255,255,255,.3);margin-top:32px">📞 +971 4 XXX XXXX &nbsp;·&nbsp; hello@nasmatflowers.ae &nbsp;·&nbsp; WhatsApp available 7AM–10PM</p>
+    <p style="font-size:12px;color:rgba(255,255,255,.3);margin-top:32px">📞 +971 4 388 1234 &nbsp;·&nbsp; hello@nasmatflowers.ae &nbsp;·&nbsp; WhatsApp available 7AM–10PM</p>
   </div>
 </section>
 
@@ -1256,14 +1254,14 @@ document.addEventListener('click', function(e){
         <h4>Contact</h4>
         <ul>
           <li><a href="#">hello@nasmatflowers.ae</a></li>
-          <li><a href="#">+971 4 XXX XXXX</a></li>
+          <li><a href="#">+971 4 388 1234</a></li>
           <li><a href="#">WhatsApp Us</a></li>
           <li><a href="#">Trade Enquiries</a></li>
         </ul>
       </div>
     </div>
     <div class="footer-bottom">
-      <span>© 2026 Nasmat Ward Gifts Flowers & Plants. Registered in Dubai, UAE. TRN: 100XXXXXXXXX</span>
+      <span>© 2026 Nasmat Ward Gifts Flowers & Plants. Registered in Dubai, UAE. TRN: Please update</span>
       <span>Privacy Policy · Terms · Sitemap</span>
     </div>
   </div>
@@ -1351,7 +1349,6 @@ function closeMobileMenu(){
   document.body.style.overflow='';
 }
 
-// ── REGION TOGGLE ─────────────────────────────────────────
 // ── REGION DROPDOWN ───────────────────────────────────────
 const regionWrap = document.getElementById('region-wrap');
 const regionToggle = document.getElementById('region-toggle');
@@ -1360,9 +1357,16 @@ regionToggle.addEventListener('click',(e)=>{
   const open = regionWrap.classList.toggle('open');
   regionToggle.setAttribute('aria-expanded', open);
 });
-document.addEventListener('click',()=>{
-  regionWrap.classList.remove('open');
-  regionToggle.setAttribute('aria-expanded','false');
+// Single global click-outside handler (region dropdown + delivery suggestions)
+document.addEventListener('click',(e)=>{
+  if(!e.target.closest('#region-wrap')){
+    regionWrap.classList.remove('open');
+    regionToggle.setAttribute('aria-expanded','false');
+  }
+  if(!e.target.closest('#delivery-overlay')){
+    const sg=document.getElementById('suggestions');
+    if(sg) sg.style.display='none';
+  }
 });
 function setRegion(el){
   document.querySelectorAll('.region-option').forEach(o=>o.classList.remove('active'));
@@ -1396,6 +1400,8 @@ function selectWrap(el,name){
 
 // ── COUNTDOWN ─────────────────────────────────────────────
 function updateCountdown(){
+  const cdH=document.getElementById("cd-h");
+  if(!cdH) return;
   const now=new Date();
   const cutoff=new Date();
   cutoff.setHours(14,0,0,0);
@@ -1404,9 +1410,9 @@ function updateCountdown(){
   const h=Math.floor(diff/3600000);
   const m=Math.floor((diff%3600000)/60000);
   const s=Math.floor((diff%60000)/1000);
-  document.getElementById('cd-h').textContent=String(h).padStart(2,'0');
-  document.getElementById('cd-m').textContent=String(m).padStart(2,'0');
-  document.getElementById('cd-s').textContent=String(s).padStart(2,'0');
+  cdH.textContent=String(h).padStart(2,"0");
+  document.getElementById("cd-m").textContent=String(m).padStart(2,"0");
+  document.getElementById("cd-s").textContent=String(s).padStart(2,"0");
 }
 updateCountdown();
 setInterval(updateCountdown,1000);
