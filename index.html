@@ -119,14 +119,28 @@ button{font-family:var(--font-b);cursor:pointer;border:none;background:none}
 }
 .nav-logo em{font-style:italic;color:var(--gold)}
 .nav-links{
-  display:flex;align-items:center;gap:32px;
+  display:flex;align-items:center;gap:8px;
   list-style:none;
 }
 .nav-links a{
-  font-size:13px;font-weight:500;letter-spacing:.04em;
-  color:var(--mist);transition:color .2s;
+  font-size:15px;font-weight:500;letter-spacing:.02em;
+  color:var(--ink);
+  padding:8px 16px;border-radius:50px;
+  transition:background .2s,color .2s;
+  position:relative;
 }
-.nav-links a:hover{color:var(--emerald)}
+.nav-links a:hover{
+  color:var(--emerald);
+  background:rgba(44,94,59,.08);
+}
+.nav-links a::after{
+  content:'';
+  position:absolute;bottom:4px;left:50%;right:50%;
+  height:2px;border-radius:2px;
+  background:var(--gold);
+  transition:left .25s ease,right .25s ease;
+}
+.nav-links a:hover::after{left:16px;right:16px}
 .nav-right{display:flex;align-items:center;gap:14px}
 .region-badge{
   font-size:11px;font-weight:500;letter-spacing:.06em;
