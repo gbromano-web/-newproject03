@@ -142,14 +142,42 @@ button{font-family:var(--font-b);cursor:pointer;border:none;background:none}
 }
 .nav-links a:hover::after{left:16px;right:16px}
 .nav-right{display:flex;align-items:center;gap:14px}
+.region-wrap{position:relative;display:inline-block}
 .region-badge{
-  font-size:11px;font-weight:500;letter-spacing:.06em;
-  padding:5px 12px;border-radius:50px;
-  border:1px solid rgba(44,94,59,.3);
+  font-size:12px;font-weight:500;letter-spacing:.04em;
+  padding:7px 14px 7px 12px;border-radius:50px;
+  border:1.5px solid rgba(44,94,59,.3);
   color:var(--emerald);cursor:pointer;
-  transition:all .2s;
+  background:transparent;
+  display:flex;align-items:center;gap:6px;
+  transition:all .2s;white-space:nowrap;
+  font-family:var(--font-b);
 }
-.region-badge:hover{background:var(--emerald);color:#fff}
+.region-badge:hover{background:rgba(44,94,59,.07)}
+.region-badge .chevron{
+  font-size:9px;transition:transform .2s;display:inline-block;
+}
+.region-wrap.open .chevron{transform:rotate(180deg)}
+.region-dropdown{
+  display:none;position:absolute;top:calc(100% + 8px);left:0;
+  background:var(--cream);border:1.5px solid rgba(44,94,59,.15);
+  border-radius:14px;box-shadow:0 8px 32px rgba(18,34,25,.12);
+  overflow:hidden;min-width:160px;z-index:200;
+}
+.region-wrap.open .region-dropdown{display:block}
+.region-option{
+  display:flex;align-items:center;gap:10px;
+  padding:12px 16px;font-size:14px;font-weight:500;
+  color:var(--ink);cursor:pointer;transition:background .15s;
+  border-bottom:1px solid rgba(44,94,59,.07);
+}
+.region-option:last-child{border-bottom:none}
+.region-option:hover{background:rgba(44,94,59,.06);color:var(--emerald)}
+.region-option.active{color:var(--emerald);background:rgba(44,94,59,.05)}
+.region-option .r-flag{font-size:18px;line-height:1}
+.region-option .r-info{display:flex;flex-direction:column}
+.region-option .r-name{font-size:13px;font-weight:600;line-height:1.2}
+.region-option .r-note{font-size:11px;color:var(--mist);margin-top:1px}
 #theme-btn{
   width:36px;height:36px;border-radius:50%;
   border:1.5px solid rgba(44,94,59,.25);
@@ -732,7 +760,33 @@ footer{
         <li><a href="#testimonials">Reviews</a></li>
       </ul>
       <div class="nav-right">
-        <span class="region-badge" id="region-toggle">🇦🇪 Dubai</span>
+        <div class="region-wrap" id="region-wrap">
+          <button class="region-badge" id="region-toggle" aria-haspopup="listbox" aria-expanded="false">
+            🇦🇪 <span id="region-label">Dubai</span> <span class="chevron">▼</span>
+          </button>
+          <div class="region-dropdown" role="listbox" aria-label="Select region">
+            <div class="region-option active" role="option" data-region="Dubai" onclick="setRegion(this)">
+              <span class="r-flag">🇦🇪</span>
+              <div class="r-info"><span class="r-name">Dubai</span><span class="r-note">Same-day delivery</span></div>
+            </div>
+            <div class="region-option" role="option" data-region="Abu Dhabi" onclick="setRegion(this)">
+              <span class="r-flag">🇦🇪</span>
+              <div class="r-info"><span class="r-name">Abu Dhabi</span><span class="r-note">Next-day delivery</span></div>
+            </div>
+            <div class="region-option" role="option" data-region="Sharjah" onclick="setRegion(this)">
+              <span class="r-flag">🇦🇪</span>
+              <div class="r-info"><span class="r-name">Sharjah</span><span class="r-note">Next-day delivery</span></div>
+            </div>
+            <div class="region-option" role="option" data-region="RAK" onclick="setRegion(this)">
+              <span class="r-flag">🇦🇪</span>
+              <div class="r-info"><span class="r-name">Ras Al Khaimah</span><span class="r-note">Scheduled delivery</span></div>
+            </div>
+            <div class="region-option" role="option" data-region="Fujairah" onclick="setRegion(this)">
+              <span class="r-flag">🇦🇪</span>
+              <div class="r-info"><span class="r-name">Fujairah</span><span class="r-note">Scheduled delivery</span></div>
+            </div>
+          </div>
+        </div>
         <button id="theme-btn" aria-label="Toggle theme">☀</button>
         <a href="#builder" class="btn btn-primary nav-cta">Order Now</a>
         <button id="menu-btn" aria-label="Open menu">☰</button>
@@ -1358,12 +1412,25 @@ function closeMobileMenu(){
 }
 
 // ── REGION TOGGLE ─────────────────────────────────────────
-const regions=['🇦🇪 Dubai','🇦🇪 Abu Dhabi','🇦🇪 Sharjah'];
-let ri=0;
-document.getElementById('region-toggle').addEventListener('click',()=>{
-  ri=(ri+1)%regions.length;
-  document.getElementById('region-toggle').textContent=regions[ri];
+// ── REGION DROPDOWN ───────────────────────────────────────
+const regionWrap = document.getElementById('region-wrap');
+const regionToggle = document.getElementById('region-toggle');
+regionToggle.addEventListener('click',(e)=>{
+  e.stopPropagation();
+  const open = regionWrap.classList.toggle('open');
+  regionToggle.setAttribute('aria-expanded', open);
 });
+document.addEventListener('click',()=>{
+  regionWrap.classList.remove('open');
+  regionToggle.setAttribute('aria-expanded','false');
+});
+function setRegion(el){
+  document.querySelectorAll('.region-option').forEach(o=>o.classList.remove('active'));
+  el.classList.add('active');
+  document.getElementById('region-label').textContent = el.dataset.region;
+  regionWrap.classList.remove('open');
+  regionToggle.setAttribute('aria-expanded','false');
+}
 
 // ── BOUQUET BUILDER ───────────────────────────────────────
 let price=249;
