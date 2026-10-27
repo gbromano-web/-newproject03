@@ -12,23 +12,32 @@
 <style>
 /* ─── DESIGN TOKENS ───────────────────────────────────── */
 :root {
-  --gold:    #B87333;
-  --gold-lt: rgba(184,115,51,0.10);
-  --emerald: #2E6B44;
-  --emerald-lt: rgba(46,107,68,0.07);
-  --crimson: #B5294E;
-  --cream:   #FDFAF5;
-  --ivory:   #F7F2EA;
-  --pale:    #EEE8DC;
-  --navy:    #1A2E22;
-  --ink:     #22302A;
-  --charcoal:#3A4A42;
-  --mist:    #7A9080;
-  --white:   #FFFFFF;
-  --glass:   rgba(253,250,245,0.88);
-  --glass-d: rgba(26,46,34,0.70);
-  --shadow:  0 4px 24px rgba(26,46,34,0.08);
-  --shadow-lg: 0 16px 56px rgba(26,46,34,0.10);
+  /* Brand palette — from the Nasmat Ward Gifts banner */
+  --gold:     #C4A24B;   /* banner gold flourish  */
+  --gold-dk:  #A8882E;   /* hover/dark gold       */
+  --gold-lt:  rgba(196,162,75,0.12);
+  --rose:     #D4708A;   /* pink roses in bouquet */
+  --rose-lt:  rgba(212,112,138,0.10);
+  --forest:   #2A5C3A;   /* deep green foliage    */
+  --forest-lt:rgba(42,92,58,0.07);
+  --parchment:#F8F3E8;   /* banner background     */
+  --parchment2:#F2ECD8;  /* slightly deeper parch.*/
+  --linen:    #EDE5D0;   /* section alternates    */
+  --ink:      #1C1C2E;   /* banner dark text      */
+  --charcoal: #3D3D52;   /* secondary text        */
+  --mist:     #7A7A94;   /* captions/labels       */
+  --white:    #FFFFFF;
+  /* keep emerald/navy/crimson as aliases */
+  --emerald:  #2A5C3A;
+  --navy:     #1C1C2E;
+  --crimson:  #C1275E;
+  --cream:    #F8F3E8;
+  --ivory:    #F2ECD8;
+  --pale:     #EDE5D0;
+  --glass:    rgba(248,243,232,0.90);
+  --glass-d:  rgba(28,28,46,0.72);
+  --shadow:   0 4px 20px rgba(28,28,46,0.07);
+  --shadow-lg:0 16px 48px rgba(28,28,46,0.10);
   --font-h:  'Playfair Display', Georgia, serif;
   --font-q:  'Cormorant Garamond', Georgia, serif;
   --font-c:  'Cinzel', serif;
@@ -40,16 +49,18 @@
 }
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
-    --cream: #0F1A12; --ivory: #162019; --pale: #1C2B20; --white: #1E3226;
-    --ink: #EDE8DC; --mist: #8BA090; --navy: #FAF7F2;
-    --glass: rgba(15,26,18,0.85); --glass-d: rgba(250,247,242,0.08);
+    --parchment:#14121E; --parchment2:#1C1A2A; --linen:#242234;
+    --cream:#14121E; --ivory:#1C1A2A; --pale:#242234; --white:#2A2840;
+    --ink:#EDE8E0; --charcoal:#C8C2B8; --mist:#8A8AA0; --navy:#EDE8E0;
+    --glass:rgba(20,18,30,0.88); --glass-d:rgba(237,232,224,0.08);
     color-scheme: dark;
   }
 }
 :root[data-theme="dark"] {
-  --cream: #0F1A12; --ivory: #162019; --pale: #1C2B20; --white: #1E3226;
-  --ink: #EDE8DC; --mist: #8BA090; --navy: #FAF7F2;
-  --glass: rgba(15,26,18,0.85); --glass-d: rgba(250,247,242,0.08);
+  --parchment:#14121E; --parchment2:#1C1A2A; --linen:#242234;
+  --cream:#14121E; --ivory:#1C1A2A; --pale:#242234; --white:#2A2840;
+  --ink:#EDE8E0; --charcoal:#C8C2B8; --mist:#8A8AA0; --navy:#EDE8E0;
+  --glass:rgba(20,18,30,0.88); --glass-d:rgba(237,232,224,0.08);
   color-scheme: dark;
 }
 
@@ -58,7 +69,7 @@
 html{scroll-behavior:smooth}
 body{
   font-family:var(--font-b);
-  background:var(--cream);
+  background:var(--parchment);
   color:var(--ink);
   overflow-x:hidden;
   padding-bottom:80px;
@@ -76,15 +87,15 @@ button{font-family:var(--font-b);cursor:pointer;border:none;background:none}
 }
 .section{padding-block:88px}
 .label{
-  font-family:var(--font-b);
+  font-family:var(--font-c);
   font-size:10px;
-  font-weight:600;
-  letter-spacing:.20em;
+  font-weight:400;
+  letter-spacing:.22em;
   text-transform:uppercase;
   color:var(--gold);
-  display:flex;align-items:center;gap:12px;
+  display:flex;align-items:center;gap:14px;
 }
-.label::before{content:'';width:32px;height:1.5px;background:var(--gold);opacity:.7}
+.label::before,.label::after{content:'';flex:0 0 24px;height:1px;background:var(--gold);opacity:.6}
 .serif{font-family:var(--font-h)}
 .btn{
   display:inline-flex;align-items:center;gap:8px;
@@ -93,12 +104,14 @@ button{font-family:var(--font-b);cursor:pointer;border:none;background:none}
   transition:all .25s ease;
   white-space:nowrap;
 }
-.btn-primary{background:var(--emerald);color:#fff;box-shadow:0 4px 16px rgba(44,94,59,0.25)}
-.btn-primary:hover{background:#1E4228;transform:translateY(-2px);box-shadow:0 8px 28px rgba(44,94,59,0.30)}
-.btn-outline{border:1.5px solid var(--emerald);color:var(--emerald)}
-.btn-outline:hover{background:var(--emerald);color:#fff;transform:translateY(-2px)}
-.btn-gold{background:var(--gold);color:#fff;box-shadow:0 4px 16px rgba(201,135,74,0.30)}
-.btn-gold:hover{background:#B5784A;transform:translateY(-2px);box-shadow:0 8px 28px rgba(201,135,74,0.35)}
+.btn-primary{background:var(--forest);color:#fff;box-shadow:0 4px 16px rgba(42,92,58,0.22)}
+.btn-primary:hover{background:#1E4228;transform:translateY(-2px);box-shadow:0 8px 28px rgba(42,92,58,0.28)}
+.btn-outline{border:1.5px solid var(--gold);color:var(--ink)}
+.btn-outline:hover{background:var(--gold);color:#fff;transform:translateY(-2px)}
+.btn-gold{background:var(--gold);color:#fff;box-shadow:0 4px 16px rgba(196,162,75,0.28)}
+.btn-gold:hover{background:var(--gold-dk);transform:translateY(-2px);box-shadow:0 8px 28px rgba(196,162,75,0.34)}
+.btn-rose{background:var(--rose);color:#fff;box-shadow:0 4px 16px rgba(212,112,138,0.25)}
+.btn-rose:hover{background:#BE5B78;transform:translateY(-2px)}
 .reveal{opacity:0;transform:translateY(28px);transition:opacity .65s ease,transform .65s ease}
 .reveal.in{opacity:1;transform:none}
 
@@ -112,45 +125,52 @@ button{font-family:var(--font-b);cursor:pointer;border:none;background:none}
 /* ─── NAV ─────────────────────────────────────────────── */
 #nav{
   position:fixed;top:0;left:0;right:0;z-index:100;
-  padding-block:20px;
-  backdrop-filter:blur(20px) saturate(200%);
-  -webkit-backdrop-filter:blur(20px) saturate(200%);
-  background:rgba(253,250,245,0.92);
-  border-bottom:1px solid rgba(184,115,51,.10);
+  padding-block:16px;
+  backdrop-filter:blur(20px) saturate(180%);
+  -webkit-backdrop-filter:blur(20px) saturate(180%);
+  background:rgba(248,243,232,0.94);
+  border-bottom:1px solid rgba(196,162,75,.18);
   transition:all .3s ease;
 }
 #nav .inner{
   display:flex;align-items:center;justify-content:space-between;gap:20px;
 }
 .nav-logo{
-  font-family:var(--font-h);
-  font-size:30px;font-weight:600;letter-spacing:.01em;
+  font-family:var(--font-c);
+  font-size:16px;font-weight:600;
+  letter-spacing:.10em;text-transform:uppercase;
   color:var(--ink);white-space:nowrap;
+  display:flex;align-items:center;gap:10px;
 }
-.nav-logo em{font-style:italic;color:var(--gold)}
+.nav-logo-sub{
+  display:block;font-family:var(--font-c);
+  font-size:8px;letter-spacing:.22em;
+  color:var(--gold);font-weight:400;
+  text-transform:uppercase;margin-top:2px;
+}
+.nav-logo-wrap{display:flex;flex-direction:column;line-height:1}
+.nav-logo em{font-style:normal;color:var(--ink)}
 .nav-links{
   display:flex;align-items:center;gap:8px;
   list-style:none;
 }
 .nav-links a{
-  font-size:15px;font-weight:500;letter-spacing:.02em;
-  color:var(--ink);
-  padding:8px 16px;border-radius:50px;
-  transition:background .2s,color .2s;
+  font-size:12px;font-weight:500;letter-spacing:.08em;
+  text-transform:uppercase;
+  color:var(--charcoal);
+  padding:8px 14px;border-radius:4px;
+  transition:color .2s;
   position:relative;
 }
-.nav-links a:hover{
-  color:var(--emerald);
-  background:rgba(44,94,59,.08);
-}
+.nav-links a:hover{color:var(--gold)}
 .nav-links a::after{
   content:'';
-  position:absolute;bottom:4px;left:50%;right:50%;
-  height:2px;border-radius:2px;
+  position:absolute;bottom:2px;left:50%;right:50%;
+  height:1px;
   background:var(--gold);
   transition:left .25s ease,right .25s ease;
 }
-.nav-links a:hover::after{left:16px;right:16px}
+.nav-links a:hover::after{left:14px;right:14px}
 .nav-right{display:flex;align-items:center;gap:14px}
 .region-wrap{position:relative;display:inline-block}
 .region-badge{
@@ -211,30 +231,35 @@ button{font-family:var(--font-b);cursor:pointer;border:none;background:none}
 #hero{
   min-height:100svh;
   display:flex;align-items:center;
-  background:linear-gradient(155deg,#FDFAF5 0%,#F2EDE2 55%,#EAF2EC 100%);
+  background:var(--parchment);
   padding-top:80px;
   position:relative;overflow:hidden;
 }
-/* Hero soft radial wash */
+/* Parchment base with centre radial lift */
 #hero::before{
   content:'';position:absolute;inset:0;
   background:
-    radial-gradient(ellipse 60% 50% at 72% 50%, rgba(46,107,68,0.07) 0%, transparent 70%),
-    radial-gradient(circle at 15% 30%, rgba(184,115,51,0.08) 0%, transparent 50%),
-    radial-gradient(circle at 85% 85%, rgba(46,107,68,0.05) 0%, transparent 40%);
+    radial-gradient(ellipse 55% 65% at 50% 45%, rgba(255,255,255,0.55) 0%, transparent 70%);
+  pointer-events:none;
+}
+/* Gold dust vignette — corners & edges */
+#hero::after{
+  content:'';position:absolute;inset:0;
+  background:
+    radial-gradient(ellipse 80% 40% at 50% 0%,   rgba(196,162,75,0.20) 0%, transparent 60%),
+    radial-gradient(ellipse 80% 40% at 50% 100%,  rgba(196,162,75,0.18) 0%, transparent 60%),
+    radial-gradient(ellipse 30% 80% at 0%   50%,  rgba(196,162,75,0.14) 0%, transparent 60%),
+    radial-gradient(ellipse 30% 80% at 100% 50%,  rgba(196,162,75,0.14) 0%, transparent 60%);
   pointer-events:none;
 }
 /* Decorative petal shapes */
-.hero-petal{
-  position:absolute;border-radius:50% 0;
-  pointer-events:none;
-}
-.hero-petal-1{width:380px;height:380px;top:-100px;right:120px;
-  background:var(--gold);opacity:.05;transform:rotate(45deg)}
-.hero-petal-2{width:220px;height:220px;bottom:100px;right:60px;
-  background:var(--emerald);opacity:.06;transform:rotate(-32deg)}
-.hero-petal-3{width:280px;height:280px;top:30%;left:-80px;
-  background:var(--gold);opacity:.04;transform:rotate(22deg)}
+.hero-petal{position:absolute;border-radius:50% 0;pointer-events:none}
+.hero-petal-1{width:320px;height:320px;top:-80px;right:100px;
+  background:var(--gold);opacity:.06;transform:rotate(45deg)}
+.hero-petal-2{width:180px;height:180px;bottom:80px;right:60px;
+  background:var(--rose);opacity:.08;transform:rotate(-28deg)}
+.hero-petal-3{width:240px;height:240px;top:35%;left:-70px;
+  background:var(--forest);opacity:.05;transform:rotate(22deg)}
 .hero-inner{
   display:grid;grid-template-columns:1fr 1fr;
   gap:60px;align-items:center;
@@ -243,27 +268,43 @@ button{font-family:var(--font-b);cursor:pointer;border:none;background:none}
 }
 .hero-kicker{margin-bottom:20px}
 .hero-h1{
-  font-family:var(--font-h);
-  font-size:clamp(40px,5.5vw,76px);
-  line-height:1.08;font-weight:700;
-  color:var(--ink);margin-bottom:24px;
-  letter-spacing:-0.02em;
+  font-family:var(--font-c);
+  font-size:clamp(28px,4vw,54px);
+  line-height:1.12;font-weight:600;
+  color:var(--ink);margin-bottom:10px;
+  letter-spacing:.08em;text-transform:uppercase;
   text-wrap:balance;
 }
-.hero-h1 em{font-style:italic;color:var(--emerald);display:block}
+.hero-h1 em{
+  font-style:normal;
+  font-family:var(--font-c);
+  font-size:.52em;letter-spacing:.28em;
+  color:var(--charcoal);display:block;
+  font-weight:400;margin-top:6px;
+}
+/* Gold flourish under logo */
+.hero-flourish{
+  color:var(--gold);font-size:28px;line-height:1;
+  margin:10px 0 20px;letter-spacing:.05em;
+  font-family:Georgia,serif;
+}
+.hero-url{
+  font-size:13px;letter-spacing:.06em;color:var(--mist);
+  margin-bottom:36px;font-family:var(--font-b);
+}
 .hero-sub{
-  font-size:17px;line-height:1.8;
-  color:var(--mist);max-width:440px;
-  margin-bottom:40px;font-weight:400;
+  font-size:16px;line-height:1.80;
+  color:var(--charcoal);max-width:400px;
+  margin-bottom:36px;font-weight:400;
 }
 .hero-actions{display:flex;gap:14px;flex-wrap:wrap}
 .hero-stats{
   display:flex;gap:32px;margin-top:48px;
-  padding-top:32px;border-top:1px solid rgba(46,107,68,.12);
+  padding-top:32px;border-top:1px solid rgba(196,162,75,.20);
 }
 .stat-n{
-  font-family:var(--font-h);font-size:32px;
-  font-weight:700;color:var(--emerald);
+  font-family:var(--font-h);font-size:30px;
+  font-weight:700;color:var(--forest);
 }
 .stat-l{font-size:12px;color:var(--mist);margin-top:2px}
 .hero-visual{
@@ -271,12 +312,13 @@ button{font-family:var(--font-b);cursor:pointer;border:none;background:none}
   align-items:center;justify-content:center;
 }
 .hero-card{
-  width:100%;max-width:420px;aspect-ratio:3/4;
+  width:100%;max-width:400px;aspect-ratio:3/4;
   border-radius:var(--r-xl);overflow:hidden;
-  background:linear-gradient(145deg,#2E6B44 0%,#1A3D28 60%,#0E2118 100%);
+  background:linear-gradient(145deg,#F5ECD6 0%,#EDE0C4 50%,#E2D4B4 100%);
   display:flex;align-items:center;justify-content:center;
-  box-shadow:0 32px 80px rgba(26,46,34,0.20),0 0 0 1px rgba(184,115,51,0.15);
+  box-shadow:0 24px 64px rgba(28,28,46,0.12),0 0 0 1px rgba(196,162,75,0.25);
   position:relative;
+  border:1px solid rgba(196,162,75,0.20);
 }
 .hero-svg-wrap{
   position:absolute;inset:0;
@@ -287,9 +329,10 @@ button{font-family:var(--font-b);cursor:pointer;border:none;background:none}
   background:var(--gold);color:#fff;
   border-radius:50%;width:108px;height:108px;
   display:flex;flex-direction:column;align-items:center;justify-content:center;
-  font-size:11px;font-weight:600;letter-spacing:.05em;
-  text-align:center;line-height:1.3;
-  box-shadow:0 12px 32px rgba(201,135,74,0.40);
+  font-size:10px;font-weight:600;letter-spacing:.06em;
+  text-align:center;line-height:1.35;
+  box-shadow:0 10px 28px rgba(196,162,75,0.38);
+  border:3px solid rgba(255,255,255,0.40);
 }
 .hero-pill{
   position:absolute;top:20px;left:-24px;
@@ -683,29 +726,32 @@ button{font-family:var(--font-b);cursor:pointer;border:none;background:none}
 
 /* ─── CTA BAND ────────────────────────────────────────── */
 #cta{
-  background:linear-gradient(150deg,#2E6B44 0%,#1A4A2C 50%,#22593A 100%);
+  background:var(--parchment2);
+  border-top:1px solid rgba(196,162,75,.20);
+  border-bottom:1px solid rgba(196,162,75,.20);
   padding-block:100px;text-align:center;
   position:relative;overflow:hidden;
 }
 #cta::before{
   content:'';position:absolute;inset:0;
   background:
-    radial-gradient(ellipse 70% 50% at 50% 110%, rgba(255,255,255,0.06) 0%, transparent 70%),
-    radial-gradient(circle at 10% 20%, rgba(184,115,51,0.12) 0%, transparent 50%);
+    radial-gradient(ellipse 70% 60% at 50% 50%, rgba(255,255,255,0.50) 0%, transparent 70%),
+    radial-gradient(ellipse 80% 40% at 50% 0%,   rgba(196,162,75,0.18) 0%, transparent 60%),
+    radial-gradient(ellipse 80% 40% at 50% 100%,  rgba(196,162,75,0.16) 0%, transparent 60%);
   pointer-events:none;
 }
 .cta-h{
-  font-family:var(--font-h);
-  font-size:clamp(30px,4.5vw,58px);
-  color:#FFFFFF;font-weight:700;
-  line-height:1.12;margin-bottom:16px;
-  letter-spacing:-0.02em;text-wrap:balance;
+  font-family:var(--font-c);
+  font-size:clamp(22px,3.5vw,44px);
+  color:var(--ink);font-weight:600;
+  line-height:1.20;margin-bottom:14px;
+  letter-spacing:.08em;text-transform:uppercase;text-wrap:balance;
   position:relative;z-index:1;
 }
-.cta-h em{font-style:italic;color:rgba(255,220,150,0.95)}
+.cta-h em{font-style:normal;color:var(--gold)}
 .cta-sub{
-  font-size:17px;color:rgba(255,255,255,.65);
-  margin-bottom:44px;line-height:1.75;font-weight:400;
+  font-size:16px;color:var(--charcoal);
+  margin-bottom:40px;line-height:1.75;font-weight:400;
   position:relative;z-index:1;
 }
 .cta-actions{display:flex;gap:16px;justify-content:center;flex-wrap:wrap;position:relative;z-index:1}
@@ -825,7 +871,13 @@ footer{
 <nav id="nav" role="navigation" aria-label="Main navigation">
   <div class="container">
     <div class="inner">
-      <a class="nav-logo" href="#">Nasmat <em>Ward Gift</em></a>
+      <a class="nav-logo" href="#">
+        <span style="font-size:22px;line-height:1">🌸</span>
+        <span class="nav-logo-wrap">
+          <span>Nasmat Ward Gifts</span>
+          <span class="nav-logo-sub">Flowers &amp; Plants</span>
+        </span>
+      </a>
       <ul class="nav-links">
         <li><a href="#builder">Bouquet Builder</a></li>
         <li><a href="#delivery">Delivery</a></li>
@@ -886,12 +938,13 @@ footer{
   <div class="container">
     <div class="hero-inner">
       <div class="hero-content">
-        <p class="label hero-kicker">Est. 2016 · Dubai, UAE</p>
-        <h1 class="hero-h1">The UAE's finest florals,<em>beautifully priced.</em></h1>
-        <p class="hero-sub">Fresh blooms sourced daily — same-day delivery across Dubai, Abu Dhabi & Sharjah. Every arrangement crafted with care, never a compromise on quality.</p>
+        <h1 class="hero-h1">Nasmat Ward Gifts<em>Flowers &amp; Plants</em></h1>
+        <div class="hero-flourish">❧ ❦ ❧</div>
+        <p class="hero-url">www.nasmatflowers.ae</p>
+        <p class="hero-sub">Fresh bouquets, plants &amp; floral gifts crafted in Dubai. Same-day delivery across the UAE — from birthdays to weddings, always at prices you'll love.</p>
         <div class="hero-actions">
-          <a href="#builder" class="btn btn-primary" style="font-size:15px;padding:16px 34px">Design Your Bouquet ↗</a>
-          <a href="#delivery" class="btn btn-outline" style="font-size:15px;padding:16px 28px">Check Delivery →</a>
+          <a href="#builder" class="btn btn-primary" style="font-size:14px;padding:15px 32px;border-radius:4px;letter-spacing:.06em">Design Your Bouquet</a>
+          <a href="#delivery" class="btn btn-outline" style="font-size:14px;padding:15px 26px;border-radius:4px;letter-spacing:.06em">Delivery Info</a>
         </div>
         <div class="hero-stats">
           <div><div class="stat-n">4,800+</div><div class="stat-l">Bouquets Delivered</div></div>
