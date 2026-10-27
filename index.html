@@ -12,23 +12,23 @@
 <style>
 /* ─── DESIGN TOKENS ───────────────────────────────────── */
 :root {
-  --gold:    #C9874A;
-  --gold-lt: rgba(201,135,74,0.12);
-  --emerald: #2C5E3B;
-  --emerald-lt: rgba(44,94,59,0.08);
+  --gold:    #B87333;
+  --gold-lt: rgba(184,115,51,0.10);
+  --emerald: #2E6B44;
+  --emerald-lt: rgba(46,107,68,0.07);
   --crimson: #B5294E;
-  --cream:   #FAF7F2;
-  --ivory:   #F5EFE6;
-  --pale:    #EDE3D4;
-  --navy:    #0E1C13;
-  --ink:     #1A1F1C;
-  --charcoal:#2D3531;
-  --mist:    #6B7B70;
+  --cream:   #FDFAF5;
+  --ivory:   #F7F2EA;
+  --pale:    #EEE8DC;
+  --navy:    #1A2E22;
+  --ink:     #22302A;
+  --charcoal:#3A4A42;
+  --mist:    #7A9080;
   --white:   #FFFFFF;
-  --glass:   rgba(250,247,242,0.80);
-  --glass-d: rgba(14,28,19,0.80);
-  --shadow:  0 8px 40px rgba(14,28,19,0.14);
-  --shadow-lg: 0 24px 72px rgba(14,28,19,0.18);
+  --glass:   rgba(253,250,245,0.88);
+  --glass-d: rgba(26,46,34,0.70);
+  --shadow:  0 4px 24px rgba(26,46,34,0.08);
+  --shadow-lg: 0 16px 56px rgba(26,46,34,0.10);
   --font-h:  'Playfair Display', Georgia, serif;
   --font-q:  'Cormorant Garamond', Georgia, serif;
   --font-c:  'Cinzel', serif;
@@ -115,8 +115,8 @@ button{font-family:var(--font-b);cursor:pointer;border:none;background:none}
   padding-block:20px;
   backdrop-filter:blur(20px) saturate(200%);
   -webkit-backdrop-filter:blur(20px) saturate(200%);
-  background:rgba(250,247,242,0.85);
-  border-bottom:1px solid rgba(201,135,74,.12);
+  background:rgba(253,250,245,0.92);
+  border-bottom:1px solid rgba(184,115,51,.10);
   transition:all .3s ease;
 }
 #nav .inner{
@@ -211,17 +211,17 @@ button{font-family:var(--font-b);cursor:pointer;border:none;background:none}
 #hero{
   min-height:100svh;
   display:flex;align-items:center;
-  background:linear-gradient(160deg,#0A1810 0%,#142A1E 42%,#0E2118 100%);
+  background:linear-gradient(155deg,#FDFAF5 0%,#F2EDE2 55%,#EAF2EC 100%);
   padding-top:80px;
   position:relative;overflow:hidden;
 }
-/* Hero radial accent glows */
+/* Hero soft radial wash */
 #hero::before{
   content:'';position:absolute;inset:0;
   background:
-    radial-gradient(ellipse 70% 55% at 68% 52%, rgba(44,94,59,0.30) 0%, transparent 70%),
-    radial-gradient(circle at 88% 18%, rgba(201,135,74,0.10) 0%, transparent 48%),
-    radial-gradient(circle at 8%  82%, rgba(181,41,78,0.07)  0%, transparent 40%);
+    radial-gradient(ellipse 60% 50% at 72% 50%, rgba(46,107,68,0.07) 0%, transparent 70%),
+    radial-gradient(circle at 15% 30%, rgba(184,115,51,0.08) 0%, transparent 50%),
+    radial-gradient(circle at 85% 85%, rgba(46,107,68,0.05) 0%, transparent 40%);
   pointer-events:none;
 }
 /* Decorative petal shapes */
@@ -229,12 +229,12 @@ button{font-family:var(--font-b);cursor:pointer;border:none;background:none}
   position:absolute;border-radius:50% 0;
   pointer-events:none;
 }
-.hero-petal-1{width:340px;height:340px;top:-90px;right:160px;
-  background:var(--gold);opacity:.04;transform:rotate(45deg)}
-.hero-petal-2{width:200px;height:200px;bottom:110px;right:80px;
-  background:var(--crimson);opacity:.06;transform:rotate(-32deg)}
-.hero-petal-3{width:260px;height:260px;top:32%;left:-70px;
-  background:var(--emerald);opacity:.05;transform:rotate(22deg)}
+.hero-petal-1{width:380px;height:380px;top:-100px;right:120px;
+  background:var(--gold);opacity:.05;transform:rotate(45deg)}
+.hero-petal-2{width:220px;height:220px;bottom:100px;right:60px;
+  background:var(--emerald);opacity:.06;transform:rotate(-32deg)}
+.hero-petal-3{width:280px;height:280px;top:30%;left:-80px;
+  background:var(--gold);opacity:.04;transform:rotate(22deg)}
 .hero-inner{
   display:grid;grid-template-columns:1fr 1fr;
   gap:60px;align-items:center;
@@ -244,28 +244,28 @@ button{font-family:var(--font-b);cursor:pointer;border:none;background:none}
 .hero-kicker{margin-bottom:20px}
 .hero-h1{
   font-family:var(--font-h);
-  font-size:clamp(44px,6vw,82px);
-  line-height:1.05;font-weight:700;
-  color:#FAF7F2;margin-bottom:24px;
+  font-size:clamp(40px,5.5vw,76px);
+  line-height:1.08;font-weight:700;
+  color:var(--ink);margin-bottom:24px;
   letter-spacing:-0.02em;
   text-wrap:balance;
 }
-.hero-h1 em{font-style:italic;color:var(--gold);display:block}
+.hero-h1 em{font-style:italic;color:var(--emerald);display:block}
 .hero-sub{
-  font-size:17px;line-height:1.75;
-  color:rgba(250,247,242,0.60);max-width:440px;
-  margin-bottom:40px;font-weight:300;
+  font-size:17px;line-height:1.8;
+  color:var(--mist);max-width:440px;
+  margin-bottom:40px;font-weight:400;
 }
 .hero-actions{display:flex;gap:14px;flex-wrap:wrap}
 .hero-stats{
   display:flex;gap:32px;margin-top:48px;
-  padding-top:32px;border-top:1px solid rgba(201,135,74,.18);
+  padding-top:32px;border-top:1px solid rgba(46,107,68,.12);
 }
 .stat-n{
   font-family:var(--font-h);font-size:32px;
-  font-weight:700;color:var(--gold);
+  font-weight:700;color:var(--emerald);
 }
-.stat-l{font-size:12px;color:rgba(250,247,242,.45);margin-top:2px}
+.stat-l{font-size:12px;color:var(--mist);margin-top:2px}
 .hero-visual{
   position:relative;display:flex;
   align-items:center;justify-content:center;
@@ -273,9 +273,9 @@ button{font-family:var(--font-b);cursor:pointer;border:none;background:none}
 .hero-card{
   width:100%;max-width:420px;aspect-ratio:3/4;
   border-radius:var(--r-xl);overflow:hidden;
-  background:linear-gradient(145deg,#1A3D28 0%,#0E1C13 100%);
+  background:linear-gradient(145deg,#2E6B44 0%,#1A3D28 60%,#0E2118 100%);
   display:flex;align-items:center;justify-content:center;
-  box-shadow:0 40px 100px rgba(14,28,19,0.50),0 0 0 1px rgba(201,135,74,0.15);
+  box-shadow:0 32px 80px rgba(26,46,34,0.20),0 0 0 1px rgba(184,115,51,0.15);
   position:relative;
 }
 .hero-svg-wrap{
@@ -293,15 +293,15 @@ button{font-family:var(--font-b);cursor:pointer;border:none;background:none}
 }
 .hero-pill{
   position:absolute;top:20px;left:-24px;
-  background:rgba(14,28,19,0.70);backdrop-filter:blur(16px);
-  border:1px solid rgba(201,135,74,0.25);
-  border-radius:50px;padding:10px 16px;
+  background:rgba(255,255,255,0.90);backdrop-filter:blur(16px);
+  border:1px solid rgba(46,107,68,0.15);
+  border-radius:50px;padding:10px 18px;
   display:flex;align-items:center;gap:10px;
-  box-shadow:0 4px 20px rgba(14,28,19,0.30);white-space:nowrap;
+  box-shadow:0 4px 20px rgba(26,46,34,0.10);white-space:nowrap;
 }
-.pill-dot{width:8px;height:8px;border-radius:50%;background:#4CAF50;flex-shrink:0;
-  box-shadow:0 0 8px rgba(76,175,80,0.60)}
-.pill-text{font-size:12px;font-weight:500;color:rgba(250,247,242,0.88)}
+.pill-dot{width:8px;height:8px;border-radius:50%;background:#3DAA5C;flex-shrink:0;
+  box-shadow:0 0 6px rgba(61,170,92,0.50)}
+.pill-text{font-size:12px;font-weight:500;color:var(--ink)}
 
 /* ─── MARQUEE ─────────────────────────────────────────── */
 .marquee-bar{
@@ -323,7 +323,7 @@ button{font-family:var(--font-b);cursor:pointer;border:none;background:none}
 @keyframes marquee{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
 
 /* ─── BOUQUET BUILDER ─────────────────────────────────── */
-#builder{background:var(--pale)}
+#builder{background:var(--ivory)}
 .builder-grid{
   display:grid;grid-template-columns:1fr 1fr;
   gap:48px;align-items:start;
@@ -461,7 +461,7 @@ button{font-family:var(--font-b);cursor:pointer;border:none;background:none}
 }
 
 /* ─── SUBSCRIPTIONS ───────────────────────────────────── */
-#subscriptions{background:var(--navy);position:relative;overflow:hidden}
+#subscriptions{background:#1A3024;position:relative;overflow:hidden}
 #subscriptions::before{
   content:'';position:absolute;
   width:600px;height:600px;border-radius:50%;
@@ -638,17 +638,17 @@ button{font-family:var(--font-b);cursor:pointer;border:none;background:none}
 }
 
 /* ─── TESTIMONIALS ────────────────────────────────────── */
-#testimonials{background:var(--ivory)}
+#testimonials{background:var(--cream)}
 .testi-grid{
   display:grid;grid-template-columns:repeat(3,1fr);
   gap:28px;margin-top:48px;
 }
 .t-card{
-  background:var(--cream);border-radius:var(--r-lg);
+  background:#FFFFFF;border-radius:var(--r-lg);
   padding:36px 32px 32px;position:relative;
-  border:1.5px solid rgba(201,135,74,0.08);
+  border:1px solid rgba(46,107,68,0.08);
   transition:all .35s;
-  box-shadow:0 4px 24px rgba(14,28,19,0.06);
+  box-shadow:0 2px 16px rgba(26,46,34,0.05);
 }
 .t-card::before{
   content:'\201C';
@@ -659,9 +659,9 @@ button{font-family:var(--font-b);cursor:pointer;border:none;background:none}
   pointer-events:none;
 }
 .t-card:hover{
-  border-color:rgba(201,135,74,0.28);
-  transform:translateY(-6px);
-  box-shadow:0 16px 48px rgba(14,28,19,0.10);
+  border-color:rgba(46,107,68,0.18);
+  transform:translateY(-4px);
+  box-shadow:0 12px 36px rgba(26,46,34,0.09);
 }
 .t-stars{color:var(--gold);font-size:12px;letter-spacing:4px;margin-bottom:18px}
 .t-q{
@@ -683,39 +683,39 @@ button{font-family:var(--font-b);cursor:pointer;border:none;background:none}
 
 /* ─── CTA BAND ────────────────────────────────────────── */
 #cta{
-  background:linear-gradient(155deg,#0E1C13 0%,#1A3024 50%,#0A1810 100%);
-  padding-block:110px;text-align:center;
+  background:linear-gradient(150deg,#2E6B44 0%,#1A4A2C 50%,#22593A 100%);
+  padding-block:100px;text-align:center;
   position:relative;overflow:hidden;
 }
 #cta::before{
   content:'';position:absolute;inset:0;
   background:
-    radial-gradient(ellipse 80% 60% at 50% 100%, rgba(44,94,59,0.25) 0%, transparent 70%),
-    radial-gradient(circle at 20% 20%, rgba(201,135,74,0.08) 0%, transparent 50%);
+    radial-gradient(ellipse 70% 50% at 50% 110%, rgba(255,255,255,0.06) 0%, transparent 70%),
+    radial-gradient(circle at 10% 20%, rgba(184,115,51,0.12) 0%, transparent 50%);
   pointer-events:none;
 }
 .cta-h{
   font-family:var(--font-h);
-  font-size:clamp(32px,4.8vw,62px);
-  color:#FAF7F2;font-weight:700;
-  line-height:1.10;margin-bottom:18px;
+  font-size:clamp(30px,4.5vw,58px);
+  color:#FFFFFF;font-weight:700;
+  line-height:1.12;margin-bottom:16px;
   letter-spacing:-0.02em;text-wrap:balance;
   position:relative;z-index:1;
 }
-.cta-h em{font-style:italic;color:var(--gold)}
+.cta-h em{font-style:italic;color:rgba(255,220,150,0.95)}
 .cta-sub{
-  font-size:17px;color:rgba(250,247,242,.55);
-  margin-bottom:44px;line-height:1.7;font-weight:300;
+  font-size:17px;color:rgba(255,255,255,.65);
+  margin-bottom:44px;line-height:1.75;font-weight:400;
   position:relative;z-index:1;
 }
 .cta-actions{display:flex;gap:16px;justify-content:center;flex-wrap:wrap;position:relative;z-index:1}
-.btn-wa{background:#25D366;color:#fff}
+.btn-wa{background:#25D366;color:#fff;box-shadow:0 4px 16px rgba(37,211,102,0.30)}
 .btn-wa:hover{background:#1ab554;transform:translateY(-2px)}
 
 /* ─── FOOTER ──────────────────────────────────────────── */
 footer{
-  background:#080F0B;padding-block:72px 36px;
-  border-top:1px solid rgba(201,135,74,.10);
+  background:#162A1E;padding-block:72px 36px;
+  border-top:1px solid rgba(184,115,51,.12);
 }
 .footer-grid{
   display:grid;grid-template-columns:2fr 1fr 1fr 1fr;
@@ -886,12 +886,12 @@ footer{
   <div class="container">
     <div class="hero-inner">
       <div class="hero-content">
-        <p class="label hero-kicker" style="color:var(--gold)">Est. 2016 · Dubai, UAE</p>
+        <p class="label hero-kicker">Est. 2016 · Dubai, UAE</p>
         <h1 class="hero-h1">The UAE's finest florals,<em>beautifully priced.</em></h1>
         <p class="hero-sub">Fresh blooms sourced daily — same-day delivery across Dubai, Abu Dhabi & Sharjah. Every arrangement crafted with care, never a compromise on quality.</p>
         <div class="hero-actions">
-          <a href="#builder" class="btn btn-gold" style="font-size:15px;padding:16px 34px">Design Your Bouquet ↗</a>
-          <a href="#delivery" class="btn btn-outline" style="border-color:rgba(201,135,74,0.5);color:rgba(250,247,242,0.80)">Check Delivery →</a>
+          <a href="#builder" class="btn btn-primary" style="font-size:15px;padding:16px 34px">Design Your Bouquet ↗</a>
+          <a href="#delivery" class="btn btn-outline" style="font-size:15px;padding:16px 28px">Check Delivery →</a>
         </div>
         <div class="hero-stats">
           <div><div class="stat-n">4,800+</div><div class="stat-l">Bouquets Delivered</div></div>
@@ -1336,7 +1336,7 @@ function confirmDelivery(){
       <a href="#builder" class="btn btn-gold" style="font-size:15px;padding:16px 36px">Design Your Bouquet →</a>
       <button class="btn btn-wa" onclick="openWhatsApp()" style="font-size:15px;padding:16px 30px">💬 WhatsApp Us</button>
     </div>
-    <p style="font-size:12px;color:rgba(250,247,242,.25);margin-top:36px;position:relative;z-index:1">📞 +971 4 388 1234 &nbsp;·&nbsp; hello@nasmatflowers.ae &nbsp;·&nbsp; WhatsApp available 7AM–10PM</p>
+    <p style="font-size:12px;color:rgba(255,255,255,.40);margin-top:36px;position:relative;z-index:1">📞 +971 4 388 1234 &nbsp;·&nbsp; hello@nasmatflowers.ae &nbsp;·&nbsp; WhatsApp available 7AM–10PM</p>
   </div>
 </section>
 
