@@ -8,41 +8,48 @@
 <meta name="description" content="Fresh flowers for Dubai, Abu Dhabi & Sharjah. Same-day delivery, custom bouquets, wedding florals.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Inter:wght@300;400;500;600&family=Cinzel:wght@400;600&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&family=Inter:wght@300;400;500;600&family=Cinzel:wght@400;600&display=swap">
 <style>
 /* ─── DESIGN TOKENS ───────────────────────────────────── */
 :root {
-  --gold:    #E27D60;
+  --gold:    #C9874A;
+  --gold-lt: rgba(201,135,74,0.12);
   --emerald: #2C5E3B;
-  --crimson: #C1275E;
-  --cream:   #FAF6EE;
-  --navy:    #122219;
-  --ink:     #1A2E22;
-  --mist:    #7A8C7D;
-  --pale:    #F0EBE0;
+  --emerald-lt: rgba(44,94,59,0.08);
+  --crimson: #B5294E;
+  --cream:   #FAF7F2;
+  --ivory:   #F5EFE6;
+  --pale:    #EDE3D4;
+  --navy:    #0E1C13;
+  --ink:     #1A1F1C;
+  --charcoal:#2D3531;
+  --mist:    #6B7B70;
   --white:   #FFFFFF;
-  --glass:   rgba(250,246,238,0.72);
-  --glass-d: rgba(18,34,25,0.72);
-  --shadow:  0 8px 40px rgba(18,34,25,0.12);
+  --glass:   rgba(250,247,242,0.80);
+  --glass-d: rgba(14,28,19,0.80);
+  --shadow:  0 8px 40px rgba(14,28,19,0.14);
+  --shadow-lg: 0 24px 72px rgba(14,28,19,0.18);
   --font-h:  'Playfair Display', Georgia, serif;
+  --font-q:  'Cormorant Garamond', Georgia, serif;
   --font-c:  'Cinzel', serif;
   --font-b:  'Inter', system-ui, sans-serif;
   --r:       14px;
   --r-lg:    24px;
+  --r-xl:    36px;
   color-scheme: light;
 }
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
-    --cream: #0F1C14; --pale: #1A2E22; --white: #1E3329;
-    --ink: #EDE8DF; --mist: #8FAF96; --navy: #FAF6EE;
-    --glass: rgba(15,28,20,0.80); --glass-d: rgba(250,246,238,0.10);
+    --cream: #0F1A12; --ivory: #162019; --pale: #1C2B20; --white: #1E3226;
+    --ink: #EDE8DC; --mist: #8BA090; --navy: #FAF7F2;
+    --glass: rgba(15,26,18,0.85); --glass-d: rgba(250,247,242,0.08);
     color-scheme: dark;
   }
 }
 :root[data-theme="dark"] {
-  --cream: #0F1C14; --pale: #1A2E22; --white: #1E3329;
-  --ink: #EDE8DF; --mist: #8FAF96; --navy: #FAF6EE;
-  --glass: rgba(15,28,20,0.80); --glass-d: rgba(250,246,238,0.10);
+  --cream: #0F1A12; --ivory: #162019; --pale: #1C2B20; --white: #1E3226;
+  --ink: #EDE8DC; --mist: #8BA090; --navy: #FAF7F2;
+  --glass: rgba(15,26,18,0.85); --glass-d: rgba(250,247,242,0.08);
   color-scheme: dark;
 }
 
@@ -69,14 +76,15 @@ button{font-family:var(--font-b);cursor:pointer;border:none;background:none}
 }
 .section{padding-block:88px}
 .label{
-  font-family:var(--font-c);
+  font-family:var(--font-b);
   font-size:10px;
-  letter-spacing:.18em;
+  font-weight:600;
+  letter-spacing:.20em;
   text-transform:uppercase;
   color:var(--gold);
-  display:flex;align-items:center;gap:10px;
+  display:flex;align-items:center;gap:12px;
 }
-.label::before{content:'';width:28px;height:1px;background:var(--gold)}
+.label::before{content:'';width:32px;height:1.5px;background:var(--gold);opacity:.7}
 .serif{font-family:var(--font-h)}
 .btn{
   display:inline-flex;align-items:center;gap:8px;
@@ -85,12 +93,12 @@ button{font-family:var(--font-b);cursor:pointer;border:none;background:none}
   transition:all .25s ease;
   white-space:nowrap;
 }
-.btn-primary{background:var(--emerald);color:#fff}
-.btn-primary:hover{background:var(--navy);transform:translateY(-2px);box-shadow:var(--shadow)}
+.btn-primary{background:var(--emerald);color:#fff;box-shadow:0 4px 16px rgba(44,94,59,0.25)}
+.btn-primary:hover{background:#1E4228;transform:translateY(-2px);box-shadow:0 8px 28px rgba(44,94,59,0.30)}
 .btn-outline{border:1.5px solid var(--emerald);color:var(--emerald)}
 .btn-outline:hover{background:var(--emerald);color:#fff;transform:translateY(-2px)}
-.btn-gold{background:var(--gold);color:#fff}
-.btn-gold:hover{background:var(--crimson);transform:translateY(-2px)}
+.btn-gold{background:var(--gold);color:#fff;box-shadow:0 4px 16px rgba(201,135,74,0.30)}
+.btn-gold:hover{background:#B5784A;transform:translateY(-2px);box-shadow:0 8px 28px rgba(201,135,74,0.35)}
 .reveal{opacity:0;transform:translateY(28px);transition:opacity .65s ease,transform .65s ease}
 .reveal.in{opacity:1;transform:none}
 
@@ -104,11 +112,11 @@ button{font-family:var(--font-b);cursor:pointer;border:none;background:none}
 /* ─── NAV ─────────────────────────────────────────────── */
 #nav{
   position:fixed;top:0;left:0;right:0;z-index:100;
-  padding-block:18px;
-  backdrop-filter:blur(16px) saturate(180%);
-  -webkit-backdrop-filter:blur(16px) saturate(180%);
-  background:var(--glass);
-  border-bottom:1px solid rgba(226,125,96,.12);
+  padding-block:20px;
+  backdrop-filter:blur(20px) saturate(200%);
+  -webkit-backdrop-filter:blur(20px) saturate(200%);
+  background:rgba(250,247,242,0.85);
+  border-bottom:1px solid rgba(201,135,74,.12);
   transition:all .3s ease;
 }
 #nav .inner{
@@ -203,49 +211,71 @@ button{font-family:var(--font-b);cursor:pointer;border:none;background:none}
 #hero{
   min-height:100svh;
   display:flex;align-items:center;
-  background:linear-gradient(160deg,var(--pale) 0%,var(--cream) 60%,rgba(226,125,96,.08) 100%);
-  padding-top:90px;
+  background:linear-gradient(160deg,#0A1810 0%,#142A1E 42%,#0E2118 100%);
+  padding-top:80px;
   position:relative;overflow:hidden;
 }
+/* Hero radial accent glows */
+#hero::before{
+  content:'';position:absolute;inset:0;
+  background:
+    radial-gradient(ellipse 70% 55% at 68% 52%, rgba(44,94,59,0.30) 0%, transparent 70%),
+    radial-gradient(circle at 88% 18%, rgba(201,135,74,0.10) 0%, transparent 48%),
+    radial-gradient(circle at 8%  82%, rgba(181,41,78,0.07)  0%, transparent 40%);
+  pointer-events:none;
+}
+/* Decorative petal shapes */
+.hero-petal{
+  position:absolute;border-radius:50% 0;
+  pointer-events:none;
+}
+.hero-petal-1{width:340px;height:340px;top:-90px;right:160px;
+  background:var(--gold);opacity:.04;transform:rotate(45deg)}
+.hero-petal-2{width:200px;height:200px;bottom:110px;right:80px;
+  background:var(--crimson);opacity:.06;transform:rotate(-32deg)}
+.hero-petal-3{width:260px;height:260px;top:32%;left:-70px;
+  background:var(--emerald);opacity:.05;transform:rotate(22deg)}
 .hero-inner{
   display:grid;grid-template-columns:1fr 1fr;
   gap:60px;align-items:center;
   padding-block:80px;
+  position:relative;z-index:2;
 }
 .hero-kicker{margin-bottom:20px}
 .hero-h1{
   font-family:var(--font-h);
-  font-size:clamp(40px,5.5vw,76px);
-  line-height:1.08;font-weight:700;
-  color:var(--ink);margin-bottom:24px;
+  font-size:clamp(44px,6vw,82px);
+  line-height:1.05;font-weight:700;
+  color:#FAF7F2;margin-bottom:24px;
+  letter-spacing:-0.02em;
   text-wrap:balance;
 }
-.hero-h1 em{font-style:italic;color:var(--gold)}
+.hero-h1 em{font-style:italic;color:var(--gold);display:block}
 .hero-sub{
-  font-size:16px;line-height:1.7;
-  color:var(--mist);max-width:420px;
-  margin-bottom:36px;
+  font-size:17px;line-height:1.75;
+  color:rgba(250,247,242,0.60);max-width:440px;
+  margin-bottom:40px;font-weight:300;
 }
 .hero-actions{display:flex;gap:14px;flex-wrap:wrap}
 .hero-stats{
   display:flex;gap:32px;margin-top:48px;
-  padding-top:32px;border-top:1px solid rgba(44,94,59,.12);
+  padding-top:32px;border-top:1px solid rgba(201,135,74,.18);
 }
 .stat-n{
   font-family:var(--font-h);font-size:32px;
-  font-weight:700;color:var(--emerald);
+  font-weight:700;color:var(--gold);
 }
-.stat-l{font-size:12px;color:var(--mist);margin-top:2px}
+.stat-l{font-size:12px;color:rgba(250,247,242,.45);margin-top:2px}
 .hero-visual{
   position:relative;display:flex;
   align-items:center;justify-content:center;
 }
 .hero-card{
   width:100%;max-width:420px;aspect-ratio:3/4;
-  border-radius:var(--r-lg);overflow:hidden;
-  background:linear-gradient(145deg,var(--emerald) 0%,var(--navy) 100%);
+  border-radius:var(--r-xl);overflow:hidden;
+  background:linear-gradient(145deg,#1A3D28 0%,#0E1C13 100%);
   display:flex;align-items:center;justify-content:center;
-  box-shadow:0 32px 80px rgba(18,34,25,.22);
+  box-shadow:0 40px 100px rgba(14,28,19,0.50),0 0 0 1px rgba(201,135,74,0.15);
   position:relative;
 }
 .hero-svg-wrap{
@@ -255,27 +285,30 @@ button{font-family:var(--font-b);cursor:pointer;border:none;background:none}
 .hero-badge{
   position:absolute;bottom:-18px;right:-18px;
   background:var(--gold);color:#fff;
-  border-radius:50%;width:100px;height:100px;
+  border-radius:50%;width:108px;height:108px;
   display:flex;flex-direction:column;align-items:center;justify-content:center;
   font-size:11px;font-weight:600;letter-spacing:.05em;
   text-align:center;line-height:1.3;
-  box-shadow:0 8px 24px rgba(226,125,96,.35);
+  box-shadow:0 12px 32px rgba(201,135,74,0.40);
 }
 .hero-pill{
   position:absolute;top:20px;left:-24px;
-  background:var(--glass);backdrop-filter:blur(12px);
-  border:1px solid rgba(226,125,96,.25);
+  background:rgba(14,28,19,0.70);backdrop-filter:blur(16px);
+  border:1px solid rgba(201,135,74,0.25);
   border-radius:50px;padding:10px 16px;
   display:flex;align-items:center;gap:10px;
-  box-shadow:var(--shadow);white-space:nowrap;
+  box-shadow:0 4px 20px rgba(14,28,19,0.30);white-space:nowrap;
 }
-.pill-dot{width:8px;height:8px;border-radius:50%;background:#4CAF50;flex-shrink:0}
-.pill-text{font-size:12px;font-weight:500;color:var(--ink)}
+.pill-dot{width:8px;height:8px;border-radius:50%;background:#4CAF50;flex-shrink:0;
+  box-shadow:0 0 8px rgba(76,175,80,0.60)}
+.pill-text{font-size:12px;font-weight:500;color:rgba(250,247,242,0.88)}
 
 /* ─── MARQUEE ─────────────────────────────────────────── */
 .marquee-bar{
-  background:var(--emerald);padding-block:14px;
+  background:var(--emerald);padding-block:15px;
   overflow:hidden;white-space:nowrap;
+  border-top:1px solid rgba(201,135,74,.15);
+  border-bottom:1px solid rgba(201,135,74,.15);
 }
 .marquee-track{
   display:inline-flex;gap:0;
@@ -443,14 +476,20 @@ button{font-family:var(--font-b);cursor:pointer;border:none;background:none}
   gap:24px;margin-top:48px;
 }
 .sub-card{
-  background:rgba(250,246,238,.04);
-  border:1.5px solid rgba(250,246,238,.08);
-  border-radius:var(--r-lg);padding:36px 30px;
+  background:rgba(250,247,242,.04);
+  border:1.5px solid rgba(250,247,242,.08);
+  border-radius:var(--r-lg);padding:40px 32px;
   transition:all .35s;position:relative;
 }
+.sub-card:hover{
+  border-color:rgba(201,135,74,.25);
+  transform:translateY(-6px);
+  box-shadow:0 24px 56px rgba(14,28,19,0.20);
+}
 .sub-card.featured{
-  background:rgba(226,125,96,.12);
-  border-color:rgba(226,125,96,.4);
+  background:rgba(201,135,74,.10);
+  border-color:rgba(201,135,74,.40);
+  box-shadow:0 16px 48px rgba(201,135,74,.15);
 }
 .sub-badge{
   position:absolute;top:-13px;left:50%;transform:translateX(-50%);
@@ -599,61 +638,84 @@ button{font-family:var(--font-b);cursor:pointer;border:none;background:none}
 }
 
 /* ─── TESTIMONIALS ────────────────────────────────────── */
-#testimonials{background:var(--cream)}
+#testimonials{background:var(--ivory)}
 .testi-grid{
   display:grid;grid-template-columns:repeat(3,1fr);
-  gap:24px;margin-top:48px;
+  gap:28px;margin-top:48px;
 }
 .t-card{
-  background:var(--pale);border-radius:var(--r-lg);
-  padding:32px;position:relative;
-  border:1.5px solid transparent;transition:all .3s;
+  background:var(--cream);border-radius:var(--r-lg);
+  padding:36px 32px 32px;position:relative;
+  border:1.5px solid rgba(201,135,74,0.08);
+  transition:all .35s;
+  box-shadow:0 4px 24px rgba(14,28,19,0.06);
 }
-.t-card:hover{border-color:rgba(226,125,96,.25);transform:translateY(-4px)}
-.t-stars{color:var(--gold);font-size:13px;letter-spacing:3px;margin-bottom:16px}
+.t-card::before{
+  content:'\201C';
+  font-family:var(--font-q);
+  font-size:96px;line-height:.75;font-weight:300;
+  color:var(--gold);opacity:.18;
+  position:absolute;top:20px;left:24px;
+  pointer-events:none;
+}
+.t-card:hover{
+  border-color:rgba(201,135,74,0.28);
+  transform:translateY(-6px);
+  box-shadow:0 16px 48px rgba(14,28,19,0.10);
+}
+.t-stars{color:var(--gold);font-size:12px;letter-spacing:4px;margin-bottom:18px}
 .t-q{
-  font-family:var(--font-h);font-size:15px;
-  font-style:italic;color:var(--ink);line-height:1.7;
-  margin-bottom:20px;
+  font-family:var(--font-q);font-size:18px;
+  font-style:italic;color:var(--charcoal);line-height:1.65;
+  margin-bottom:24px;font-weight:300;
+  position:relative;z-index:1;
 }
 .t-attr{display:flex;align-items:center;gap:12px}
 .t-avatar{
-  width:40px;height:40px;border-radius:50%;
+  width:44px;height:44px;border-radius:50%;
   background:linear-gradient(135deg,var(--gold),var(--crimson));
   display:flex;align-items:center;justify-content:center;
-  font-family:var(--font-h);font-size:16px;color:#fff;font-weight:600;
+  font-family:var(--font-h);font-size:17px;color:#fff;font-weight:600;
+  flex-shrink:0;
 }
-.t-name{font-size:13px;font-weight:600;color:var(--ink)}
-.t-loc{font-size:11px;color:var(--mist)}
+.t-name{font-size:13px;font-weight:600;color:var(--ink);letter-spacing:.01em}
+.t-loc{font-size:11px;color:var(--mist);margin-top:2px}
 
 /* ─── CTA BAND ────────────────────────────────────────── */
 #cta{
-  background:linear-gradient(135deg,var(--emerald) 0%,var(--navy) 100%);
-  padding-block:100px;text-align:center;
+  background:linear-gradient(155deg,#0E1C13 0%,#1A3024 50%,#0A1810 100%);
+  padding-block:110px;text-align:center;
   position:relative;overflow:hidden;
 }
 #cta::before{
-  content:'✦';
-  position:absolute;font-size:400px;
-  color:rgba(255,255,255,.02);
-  top:-80px;left:50%;transform:translateX(-50%);
-  font-family:serif;pointer-events:none;
+  content:'';position:absolute;inset:0;
+  background:
+    radial-gradient(ellipse 80% 60% at 50% 100%, rgba(44,94,59,0.25) 0%, transparent 70%),
+    radial-gradient(circle at 20% 20%, rgba(201,135,74,0.08) 0%, transparent 50%);
+  pointer-events:none;
 }
 .cta-h{
   font-family:var(--font-h);
-  font-size:clamp(30px,4.5vw,58px);
-  color:#fff;font-weight:700;
-  line-height:1.12;margin-bottom:16px;
-  text-wrap:balance;
+  font-size:clamp(32px,4.8vw,62px);
+  color:#FAF7F2;font-weight:700;
+  line-height:1.10;margin-bottom:18px;
+  letter-spacing:-0.02em;text-wrap:balance;
+  position:relative;z-index:1;
 }
 .cta-h em{font-style:italic;color:var(--gold)}
-.cta-sub{font-size:16px;color:rgba(255,255,255,.6);margin-bottom:40px}
-.cta-actions{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
+.cta-sub{
+  font-size:17px;color:rgba(250,247,242,.55);
+  margin-bottom:44px;line-height:1.7;font-weight:300;
+  position:relative;z-index:1;
+}
+.cta-actions{display:flex;gap:16px;justify-content:center;flex-wrap:wrap;position:relative;z-index:1}
+.btn-wa{background:#25D366;color:#fff}
+.btn-wa:hover{background:#1ab554;transform:translateY(-2px)}
 
 /* ─── FOOTER ──────────────────────────────────────────── */
 footer{
-  background:var(--navy);padding-block:64px 32px;
-  border-top:1px solid rgba(250,246,238,.06);
+  background:#080F0B;padding-block:72px 36px;
+  border-top:1px solid rgba(201,135,74,.10);
 }
 .footer-grid{
   display:grid;grid-template-columns:2fr 1fr 1fr 1fr;
@@ -715,12 +777,13 @@ footer{
 /* ─── SECTION HEADERS ─────────────────────────────────── */
 .section-h2{
   font-family:var(--font-h);
-  font-size:clamp(28px,3.5vw,44px);
+  font-size:clamp(30px,3.8vw,48px);
   font-weight:700;color:var(--ink);
-  line-height:1.15;margin-bottom:14px;text-wrap:balance;
+  line-height:1.12;margin-bottom:16px;
+  letter-spacing:-0.015em;text-wrap:balance;
 }
-.section-sub{font-size:15px;color:var(--mist);max-width:560px;line-height:1.7}
-.section-header{margin-bottom:12px}
+.section-sub{font-size:16px;color:var(--mist);max-width:560px;line-height:1.75}
+.section-header{margin-bottom:16px}
 
 /* ─── RESPONSIVE ──────────────────────────────────────── */
 @media(max-width:900px){
@@ -816,14 +879,19 @@ footer{
 
 <!-- HERO -->
 <section id="hero" aria-label="Hero">
+  <!-- Decorative petals -->
+  <div class="hero-petal hero-petal-1" aria-hidden="true"></div>
+  <div class="hero-petal hero-petal-2" aria-hidden="true"></div>
+  <div class="hero-petal hero-petal-3" aria-hidden="true"></div>
   <div class="container">
     <div class="hero-inner">
       <div class="hero-content">
-        <p class="label hero-kicker">Est. 2016 · Dubai, UAE</p>
-        <h1 class="hero-h1">Fresh flowers, <em>great prices,</em><br>delivered today.</h1>
-        <p class="hero-sub">Fresh flowers sourced directly from UAE farms and local markets. Same-day delivery across Dubai, Abu Dhabi & Sharjah. Always affordable, always beautiful.</p>
+        <p class="label hero-kicker" style="color:var(--gold)">Est. 2016 · Dubai, UAE</p>
+        <h1 class="hero-h1">The UAE's finest florals,<em>beautifully priced.</em></h1>
+        <p class="hero-sub">Fresh blooms sourced daily — same-day delivery across Dubai, Abu Dhabi & Sharjah. Every arrangement crafted with care, never a compromise on quality.</p>
         <div class="hero-actions">
-          <a href="#builder" class="btn btn-primary">Design Your Bouquet ↗</a>
+          <a href="#builder" class="btn btn-gold" style="font-size:15px;padding:16px 34px">Design Your Bouquet ↗</a>
+          <a href="#delivery" class="btn btn-outline" style="border-color:rgba(201,135,74,0.5);color:rgba(250,247,242,0.80)">Check Delivery →</a>
         </div>
         <div class="hero-stats">
           <div><div class="stat-n">4,800+</div><div class="stat-l">Bouquets Delivered</div></div>
@@ -1265,9 +1333,10 @@ function confirmDelivery(){
     <h2 class="cta-h">The UAE's finest florals,<br><em>prices you'll love.</em></h2>
     <p class="cta-sub">Same-day delivery across Dubai · Next-day Abu Dhabi & Northern Emirates</p>
     <div class="cta-actions">
-      <a href="#builder" class="btn btn-gold">Design Your Bouquet →</a>
+      <a href="#builder" class="btn btn-gold" style="font-size:15px;padding:16px 36px">Design Your Bouquet →</a>
+      <button class="btn btn-wa" onclick="openWhatsApp()" style="font-size:15px;padding:16px 30px">💬 WhatsApp Us</button>
     </div>
-    <p style="font-size:12px;color:rgba(255,255,255,.3);margin-top:32px">📞 +971 4 388 1234 &nbsp;·&nbsp; hello@nasmatflowers.ae &nbsp;·&nbsp; WhatsApp available 7AM–10PM</p>
+    <p style="font-size:12px;color:rgba(250,247,242,.25);margin-top:36px;position:relative;z-index:1">📞 +971 4 388 1234 &nbsp;·&nbsp; hello@nasmatflowers.ae &nbsp;·&nbsp; WhatsApp available 7AM–10PM</p>
   </div>
 </section>
 
