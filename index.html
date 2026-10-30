@@ -1083,120 +1083,9 @@ footer{
       <button class="tab" onclick="filterCards(this,'wedding')">Wedding</button>
     </div>
     <!-- Product card grid (filter tabs above control this) -->
-    <div class="product-grid" style="margin-top:var(--space-md)">
-
-      <div class="product-card" data-category="bouquets">
-        <div class="product-card-img">💐
-          <span class="card-badge card-badge-forest">Bestseller</span>
-        </div>
-        <div class="product-card-body">
-          <div class="product-card-name">Desert Rose Bouquet</div>
-          <div class="product-card-sub">12 stems · Same-day Dubai</div>
-          <div class="product-card-footer">
-            <span class="product-card-price">From AED 149</span>
-            <button class="product-card-btn" onclick="openWhatsApp()" aria-label="Order via WhatsApp">+</button>
-          </div>
-        </div>
-      </div>
-
-      <div class="product-card" data-category="bouquets">
-        <div class="product-card-img">🌹
-          <span class="card-badge card-badge-rose">Romantic</span>
-        </div>
-        <div class="product-card-body">
-          <div class="product-card-name">Grand Red Rose Bundle</div>
-          <div class="product-card-sub">24 roses · Velvet box wrap</div>
-          <div class="product-card-footer">
-            <span class="product-card-price">From AED 249</span>
-            <button class="product-card-btn" onclick="openWhatsApp()" aria-label="Order via WhatsApp">+</button>
-          </div>
-        </div>
-      </div>
-
-      <div class="product-card" data-category="plants">
-        <div class="product-card-img">🌿
-          <span class="card-badge card-badge-forest">Air-Purifying</span>
-        </div>
-        <div class="product-card-body">
-          <div class="product-card-name">Peace Lily Plant</div>
-          <div class="product-card-sub">Indoor · Low maintenance</div>
-          <div class="product-card-footer">
-            <span class="product-card-price">From AED 99</span>
-            <button class="product-card-btn" onclick="openWhatsApp()" aria-label="Order via WhatsApp">+</button>
-          </div>
-        </div>
-      </div>
-
-      <div class="product-card" data-category="gifts">
-        <div class="product-card-img">🎁
-          <span class="card-badge card-badge-gold">Gift Set</span>
-        </div>
-        <div class="product-card-body">
-          <div class="product-card-name">Luxury Bloom Box</div>
-          <div class="product-card-sub">Flowers + chocolates + card</div>
-          <div class="product-card-footer">
-            <span class="product-card-price">From AED 349</span>
-            <button class="product-card-btn" onclick="openWhatsApp()" aria-label="Order via WhatsApp">+</button>
-          </div>
-        </div>
-      </div>
-
-      <div class="product-card" data-category="wedding">
-        <div class="product-card-img">💍
-          <span class="card-badge card-badge-gold">Wedding</span>
-        </div>
-        <div class="product-card-body">
-          <div class="product-card-name">Bridal Bouquet</div>
-          <div class="product-card-sub">Custom · Consultation required</div>
-          <div class="product-card-footer">
-            <span class="product-card-price">From AED 699</span>
-            <button class="product-card-btn" onclick="openWhatsApp()" aria-label="Order via WhatsApp">+</button>
-          </div>
-        </div>
-      </div>
-
-      <div class="product-card" data-category="bouquets">
-        <div class="product-card-img">🌷
-          <span class="card-badge card-badge-forest">Seasonal</span>
-        </div>
-        <div class="product-card-body">
-          <div class="product-card-name">Tulip Spring Mix</div>
-          <div class="product-card-sub">15 stems · Kraft wrap</div>
-          <div class="product-card-footer">
-            <span class="product-card-price">From AED 189</span>
-            <button class="product-card-btn" onclick="openWhatsApp()" aria-label="Order via WhatsApp">+</button>
-          </div>
-        </div>
-      </div>
-
-      <div class="product-card" data-category="plants">
-        <div class="product-card-img">🌴
-          <span class="card-badge card-badge-forest">UAE Native</span>
-        </div>
-        <div class="product-card-body">
-          <div class="product-card-name">Ghaf Bonsai</div>
-          <div class="product-card-sub">Potted · Decorative ceramic</div>
-          <div class="product-card-footer">
-            <span class="product-card-price">From AED 179</span>
-            <button class="product-card-btn" onclick="openWhatsApp()" aria-label="Order via WhatsApp">+</button>
-          </div>
-        </div>
-      </div>
-
-      <div class="product-card" data-category="gifts">
-        <div class="product-card-img">✨
-          <span class="card-badge card-badge-rose">Eid Special</span>
-        </div>
-        <div class="product-card-body">
-          <div class="product-card-name">Arabic Occasion Box</div>
-          <div class="product-card-sub">Orchids + dates + oud mist</div>
-          <div class="product-card-footer">
-            <span class="product-card-price">From AED 449</span>
-            <button class="product-card-btn" onclick="openWhatsApp()" aria-label="Order via WhatsApp">+</button>
-          </div>
-        </div>
-      </div>
-
+    <div class="product-grid" id="product-grid" style="margin-top:var(--space-md)">
+      <!-- Products rendered by JS from admin panel data -->
+    </div>
     </div>
 
     <div class="builder-grid" style="margin-top:16px">
@@ -1773,15 +1662,62 @@ function setRegion(el){
   regionToggle.setAttribute('aria-expanded','false');
 }
 
+// ── PRODUCT DATA (from admin panel or defaults) ────────────
+const DEFAULT_PRODUCTS = [
+  {id:1,emoji:'💐',name:'Desert Rose Bouquet',sub:'12 stems · Same-day Dubai',cat:'bouquets',price:'From AED 149',badge:'Bestseller',badgeStyle:'forest',avail:true,fresh:true},
+  {id:2,emoji:'🌹',name:'Grand Red Rose Bundle',sub:'24 roses · Velvet box wrap',cat:'bouquets',price:'From AED 249',badge:'Romantic',badgeStyle:'rose',avail:true,fresh:true},
+  {id:3,emoji:'🌿',name:'Peace Lily Plant',sub:'Indoor · Low maintenance',cat:'plants',price:'From AED 99',badge:'Air-Purifying',badgeStyle:'forest',avail:true,fresh:true},
+  {id:4,emoji:'🎁',name:'Luxury Bloom Box',sub:'Flowers + chocolates + card',cat:'gifts',price:'From AED 349',badge:'Gift Set',badgeStyle:'gold',avail:true,fresh:true},
+  {id:5,emoji:'💍',name:'Bridal Bouquet',sub:'Custom · Consultation required',cat:'wedding',price:'From AED 699',badge:'Wedding',badgeStyle:'gold',avail:true,fresh:true},
+  {id:6,emoji:'🌷',name:'Tulip Spring Mix',sub:'15 stems · Kraft wrap',cat:'bouquets',price:'From AED 189',badge:'Seasonal',badgeStyle:'forest',avail:true,fresh:true},
+  {id:7,emoji:'🌴',name:'Ghaf Bonsai',sub:'Potted · Decorative ceramic',cat:'plants',price:'From AED 179',badge:'UAE Native',badgeStyle:'forest',avail:true,fresh:true},
+  {id:8,emoji:'✨',name:'Arabic Occasion Box',sub:'Orchids + dates + oud mist',cat:'gifts',price:'From AED 449',badge:'Eid Special',badgeStyle:'rose',avail:true,fresh:true},
+];
+
+function loadSiteProducts() {
+  try {
+    const raw = localStorage.getItem('nasmat_products');
+    return raw ? JSON.parse(raw) : DEFAULT_PRODUCTS;
+  } catch(e) { return DEFAULT_PRODUCTS; }
+}
+
+function renderProducts(filter) {
+  const grid = document.getElementById('product-grid');
+  if (!grid) return;
+  const all = loadSiteProducts().filter(p => p.avail);
+  const list = filter && filter !== 'all' ? all.filter(p => p.cat === filter) : all;
+  if (!list.length) {
+    grid.innerHTML = '<p style="color:var(--mist);font-size:14px;padding:32px 0">No products available in this category right now.</p>';
+    return;
+  }
+  grid.innerHTML = list.map(p => `
+    <div class="product-card" data-category="${p.cat}">
+      <div class="product-card-img">${p.emoji||'💐'}
+        ${p.badge ? `<span class="card-badge card-badge-${p.badgeStyle||'forest'}">${p.badge}${!p.fresh?' · Low Stock':''}</span>` : ''}
+      </div>
+      <div class="product-card-body">
+        <div class="product-card-name">${p.name}</div>
+        <div class="product-card-sub">${p.sub||''}</div>
+        <div class="product-card-footer">
+          <span class="product-card-price">${p.price||'Price on request'}</span>
+          <button class="product-card-btn" onclick="openWhatsApp()" aria-label="Order via WhatsApp">+</button>
+        </div>
+      </div>
+    </div>
+  `).join('');
+}
+
 // ── FILTER TABS ───────────────────────────────────────────
+let _currentFilter = 'all';
 function filterCards(btn, filter) {
+  _currentFilter = filter;
   document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
   btn.classList.add('active');
-  document.querySelectorAll('[data-category]').forEach(card => {
-    const show = filter === 'all' || card.dataset.category === filter;
-    card.style.display = show ? '' : 'none';
-  });
+  renderProducts(filter);
 }
+
+// Init products on page load
+document.addEventListener('DOMContentLoaded', () => renderProducts('all'));
 
 // ── BOUQUET BUILDER ───────────────────────────────────────
 let price=249;
