@@ -424,6 +424,61 @@ button{font-family:var(--font-b);cursor:pointer;border:none;background:none}
 }
 .tab:hover{border-color:var(--gold);color:var(--gold);background:rgba(196,162,75,.06)}
 .tab.active{background:var(--forest);color:#fff;border-color:var(--forest);box-shadow:0 4px 14px rgba(42,92,58,.22)}
+
+/* ── Product Card Grid ── */
+.product-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(240px,1fr));
+  gap:var(--space-md);
+  margin-bottom:var(--space-xl);
+}
+.product-card{
+  background:var(--white);border-radius:var(--radius-md);
+  overflow:hidden;
+  box-shadow:0 2px 8px rgba(28,28,46,.06);
+  transition:transform var(--dur) var(--ease),box-shadow var(--dur) var(--ease);
+  position:relative;
+}
+.product-card:hover{transform:translateY(-4px);box-shadow:0 12px 32px rgba(28,28,46,.12)}
+.product-card-img{
+  aspect-ratio:4/3;
+  background:linear-gradient(145deg,#F5ECD6,#EDE0C4);
+  display:flex;align-items:center;justify-content:center;
+  font-size:52px;position:relative;
+}
+.card-badge{
+  position:absolute;top:10px;left:10px;
+  font-family:var(--font-c);font-size:9px;
+  letter-spacing:.14em;text-transform:uppercase;
+  padding:4px 10px;border-radius:var(--radius-pill);
+  font-weight:600;
+}
+.card-badge-forest{background:var(--forest);color:#fff}
+.card-badge-gold{background:var(--gold);color:#fff}
+.card-badge-rose{background:var(--rose);color:#fff}
+.product-card-body{padding:16px}
+.product-card-name{
+  font-family:var(--font-h);font-size:16px;
+  font-weight:600;color:var(--ink);
+  margin-bottom:4px;
+}
+.product-card-sub{font-size:12px;color:var(--mist);margin-bottom:12px}
+.product-card-footer{
+  display:flex;align-items:center;justify-content:space-between;
+}
+.product-card-price{
+  font-family:var(--font-h);font-size:14px;
+  font-weight:700;color:var(--forest);
+}
+.product-card-btn{
+  width:32px;height:32px;border-radius:50%;
+  background:var(--forest);color:#fff;
+  display:flex;align-items:center;justify-content:center;
+  font-size:18px;line-height:1;
+  cursor:pointer;border:none;
+  transition:background var(--dur) var(--ease),transform var(--dur) var(--ease);
+}
+.product-card-btn:hover{background:var(--gold);transform:scale(1.1)}
 .size-row{display:flex;gap:12px;flex-wrap:wrap}
 .size-opt{
   flex:1;min-width:90px;padding:16px 12px;
@@ -851,13 +906,13 @@ footer{
 /* ─── SECTION HEADERS ─────────────────────────────────── */
 .section-h2{
   font-family:var(--font-h);
-  font-size:clamp(30px,3.8vw,48px);
+  font-size:clamp(32px,4vw,52px);
   font-weight:700;color:var(--ink);
-  line-height:1.12;margin-bottom:16px;
+  line-height:1.10;margin-bottom:var(--space-md);
   letter-spacing:-0.015em;text-wrap:balance;
 }
-.section-sub{font-size:16px;color:var(--mist);max-width:560px;line-height:1.75}
-.section-header{margin-bottom:16px}
+.section-sub{font-size:var(--type-base);color:var(--mist);max-width:560px;line-height:1.80}
+.section-header{margin-bottom:var(--space-md)}
 
 /* ─── RESPONSIVE ──────────────────────────────────────── */
 @media(max-width:900px){
@@ -1025,6 +1080,123 @@ footer{
       <button class="tab" onclick="filterCards(this,'gifts')">Gift Sets</button>
       <button class="tab" onclick="filterCards(this,'wedding')">Wedding</button>
     </div>
+    <!-- Product card grid (filter tabs above control this) -->
+    <div class="product-grid" style="margin-top:var(--space-md)">
+
+      <div class="product-card" data-category="bouquets">
+        <div class="product-card-img">💐
+          <span class="card-badge card-badge-forest">Bestseller</span>
+        </div>
+        <div class="product-card-body">
+          <div class="product-card-name">Desert Rose Bouquet</div>
+          <div class="product-card-sub">12 stems · Same-day Dubai</div>
+          <div class="product-card-footer">
+            <span class="product-card-price">From AED 149</span>
+            <button class="product-card-btn" onclick="openWhatsApp()" aria-label="Order via WhatsApp">+</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-card" data-category="bouquets">
+        <div class="product-card-img">🌹
+          <span class="card-badge card-badge-rose">Romantic</span>
+        </div>
+        <div class="product-card-body">
+          <div class="product-card-name">Grand Red Rose Bundle</div>
+          <div class="product-card-sub">24 roses · Velvet box wrap</div>
+          <div class="product-card-footer">
+            <span class="product-card-price">From AED 249</span>
+            <button class="product-card-btn" onclick="openWhatsApp()" aria-label="Order via WhatsApp">+</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-card" data-category="plants">
+        <div class="product-card-img">🌿
+          <span class="card-badge card-badge-forest">Air-Purifying</span>
+        </div>
+        <div class="product-card-body">
+          <div class="product-card-name">Peace Lily Plant</div>
+          <div class="product-card-sub">Indoor · Low maintenance</div>
+          <div class="product-card-footer">
+            <span class="product-card-price">From AED 99</span>
+            <button class="product-card-btn" onclick="openWhatsApp()" aria-label="Order via WhatsApp">+</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-card" data-category="gifts">
+        <div class="product-card-img">🎁
+          <span class="card-badge card-badge-gold">Gift Set</span>
+        </div>
+        <div class="product-card-body">
+          <div class="product-card-name">Luxury Bloom Box</div>
+          <div class="product-card-sub">Flowers + chocolates + card</div>
+          <div class="product-card-footer">
+            <span class="product-card-price">From AED 349</span>
+            <button class="product-card-btn" onclick="openWhatsApp()" aria-label="Order via WhatsApp">+</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-card" data-category="wedding">
+        <div class="product-card-img">💍
+          <span class="card-badge card-badge-gold">Wedding</span>
+        </div>
+        <div class="product-card-body">
+          <div class="product-card-name">Bridal Bouquet</div>
+          <div class="product-card-sub">Custom · Consultation required</div>
+          <div class="product-card-footer">
+            <span class="product-card-price">From AED 699</span>
+            <button class="product-card-btn" onclick="openWhatsApp()" aria-label="Order via WhatsApp">+</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-card" data-category="bouquets">
+        <div class="product-card-img">🌷
+          <span class="card-badge card-badge-forest">Seasonal</span>
+        </div>
+        <div class="product-card-body">
+          <div class="product-card-name">Tulip Spring Mix</div>
+          <div class="product-card-sub">15 stems · Kraft wrap</div>
+          <div class="product-card-footer">
+            <span class="product-card-price">From AED 189</span>
+            <button class="product-card-btn" onclick="openWhatsApp()" aria-label="Order via WhatsApp">+</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-card" data-category="plants">
+        <div class="product-card-img">🌴
+          <span class="card-badge card-badge-forest">UAE Native</span>
+        </div>
+        <div class="product-card-body">
+          <div class="product-card-name">Ghaf Bonsai</div>
+          <div class="product-card-sub">Potted · Decorative ceramic</div>
+          <div class="product-card-footer">
+            <span class="product-card-price">From AED 179</span>
+            <button class="product-card-btn" onclick="openWhatsApp()" aria-label="Order via WhatsApp">+</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-card" data-category="gifts">
+        <div class="product-card-img">✨
+          <span class="card-badge card-badge-rose">Eid Special</span>
+        </div>
+        <div class="product-card-body">
+          <div class="product-card-name">Arabic Occasion Box</div>
+          <div class="product-card-sub">Orchids + dates + oud mist</div>
+          <div class="product-card-footer">
+            <span class="product-card-price">From AED 449</span>
+            <button class="product-card-btn" onclick="openWhatsApp()" aria-label="Order via WhatsApp">+</button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
     <div class="builder-grid" style="margin-top:16px">
       <div class="builder-steps">
         <!-- Step 1 -->
