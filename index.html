@@ -1662,38 +1662,46 @@ function setRegion(el){
   regionToggle.setAttribute('aria-expanded','false');
 }
 
-// ── PRODUCT DATA (from admin panel or defaults) ────────────
+// ── PRODUCT DATA (fetched from cloud API) ──────────────────
+const API_URL = 'https://YOUR-BACKEND-URL.railway.app'; // ← UPDATE after deploy
+
 const DEFAULT_PRODUCTS = [
-  {id:1,emoji:'💐',name:'Desert Rose Bouquet',sub:'12 stems · Same-day Dubai',cat:'bouquets',price:'From AED 149',badge:'Bestseller',badgeStyle:'forest',avail:true,fresh:true},
-  {id:2,emoji:'🌹',name:'Grand Red Rose Bundle',sub:'24 roses · Velvet box wrap',cat:'bouquets',price:'From AED 249',badge:'Romantic',badgeStyle:'rose',avail:true,fresh:true},
-  {id:3,emoji:'🌿',name:'Peace Lily Plant',sub:'Indoor · Low maintenance',cat:'plants',price:'From AED 99',badge:'Air-Purifying',badgeStyle:'forest',avail:true,fresh:true},
-  {id:4,emoji:'🎁',name:'Luxury Bloom Box',sub:'Flowers + chocolates + card',cat:'gifts',price:'From AED 349',badge:'Gift Set',badgeStyle:'gold',avail:true,fresh:true},
-  {id:5,emoji:'💍',name:'Bridal Bouquet',sub:'Custom · Consultation required',cat:'wedding',price:'From AED 699',badge:'Wedding',badgeStyle:'gold',avail:true,fresh:true},
-  {id:6,emoji:'🌷',name:'Tulip Spring Mix',sub:'15 stems · Kraft wrap',cat:'bouquets',price:'From AED 189',badge:'Seasonal',badgeStyle:'forest',avail:true,fresh:true},
-  {id:7,emoji:'🌴',name:'Ghaf Bonsai',sub:'Potted · Decorative ceramic',cat:'plants',price:'From AED 179',badge:'UAE Native',badgeStyle:'forest',avail:true,fresh:true},
-  {id:8,emoji:'✨',name:'Arabic Occasion Box',sub:'Orchids + dates + oud mist',cat:'gifts',price:'From AED 449',badge:'Eid Special',badgeStyle:'rose',avail:true,fresh:true},
+  {id:'d1',emoji:'💐',name:'Desert Rose Bouquet',sub:'12 stems · Same-day Dubai',category:'bouquets',price:'From AED 149',badge:'Bestseller',badge_style:'forest',available:true,fresh:true},
+  {id:'d2',emoji:'🌹',name:'Grand Red Rose Bundle',sub:'24 roses · Velvet box wrap',category:'bouquets',price:'From AED 249',badge:'Romantic',badge_style:'rose',available:true,fresh:true},
+  {id:'d3',emoji:'🌿',name:'Peace Lily Plant',sub:'Indoor · Low maintenance',category:'plants',price:'From AED 99',badge:'Air-Purifying',badge_style:'forest',available:true,fresh:true},
+  {id:'d4',emoji:'🎁',name:'Luxury Bloom Box',sub:'Flowers + chocolates + card',category:'gifts',price:'From AED 349',badge:'Gift Set',badge_style:'gold',available:true,fresh:true},
+  {id:'d5',emoji:'💍',name:'Bridal Bouquet',sub:'Custom · Consultation required',category:'wedding',price:'From AED 699',badge:'Wedding',badge_style:'gold',available:true,fresh:true},
+  {id:'d6',emoji:'🌷',name:'Tulip Spring Mix',sub:'15 stems · Kraft wrap',category:'bouquets',price:'From AED 189',badge:'Seasonal',badge_style:'forest',available:true,fresh:true},
+  {id:'d7',emoji:'🌴',name:'Ghaf Bonsai',sub:'Potted · Decorative ceramic',category:'plants',price:'From AED 179',badge:'UAE Native',badge_style:'forest',available:true,fresh:true},
+  {id:'d8',emoji:'✨',name:'Arabic Occasion Box',sub:'Orchids + dates + oud mist',category:'gifts',price:'From AED 449',badge:'Eid Special',badge_style:'rose',available:true,fresh:true},
 ];
 
-function loadSiteProducts() {
+let _siteProducts = null;
+
+async function fetchProducts() {
   try {
-    const raw = localStorage.getItem('nasmat_products');
-    return raw ? JSON.parse(raw) : DEFAULT_PRODUCTS;
-  } catch(e) { return DEFAULT_PRODUCTS; }
+    const res = await fetch(API_URL + '/api/products', { mode: 'cors' });
+    if (!res.ok) throw new Error('HTTP ' + res.status);
+    return await res.json();
+  } catch (_) {
+    // API not reachable — fall back to defaults so site always works
+    return DEFAULT_PRODUCTS;
+  }
 }
 
 function renderProducts(filter) {
   const grid = document.getElementById('product-grid');
   if (!grid) return;
-  const all = loadSiteProducts().filter(p => p.avail);
-  const list = filter && filter !== 'all' ? all.filter(p => p.cat === filter) : all;
+  const src = (_siteProducts || DEFAULT_PRODUCTS).filter(p => p.available);
+  const list = filter && filter !== 'all' ? src.filter(p => p.category === filter) : src;
   if (!list.length) {
     grid.innerHTML = '<p style="color:var(--mist);font-size:14px;padding:32px 0">No products available in this category right now.</p>';
     return;
   }
   grid.innerHTML = list.map(p => `
-    <div class="product-card" data-category="${p.cat}">
+    <div class="product-card" data-category="${p.category}">
       <div class="product-card-img">${p.emoji||'💐'}
-        ${p.badge ? `<span class="card-badge card-badge-${p.badgeStyle||'forest'}">${p.badge}${!p.fresh?' · Low Stock':''}</span>` : ''}
+        ${p.badge ? `<span class="card-badge card-badge-${p.badge_style||'forest'}">${p.badge}${!p.fresh?' · Low Stock':''}</span>` : ''}
       </div>
       <div class="product-card-body">
         <div class="product-card-name">${p.name}</div>
@@ -1716,8 +1724,12 @@ function filterCards(btn, filter) {
   renderProducts(filter);
 }
 
-// Init products on page load
-document.addEventListener('DOMContentLoaded', () => renderProducts('all'));
+// Init products on page load — fetch from API, fall back to defaults
+document.addEventListener('DOMContentLoaded', async () => {
+  renderProducts('all'); // instant render with defaults
+  _siteProducts = await fetchProducts();
+  renderProducts(_currentFilter); // re-render with live data
+});
 
 // ── BOUQUET BUILDER ───────────────────────────────────────
 let price=249;
