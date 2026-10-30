@@ -45,6 +45,18 @@
   --r:       14px;
   --r-lg:    24px;
   --r-xl:    36px;
+  /* ── 8px spacing system ── */
+  --space-xs: 4px;  --space-sm: 8px;  --space-md: 16px;
+  --space-lg: 32px; --space-xl: 64px;
+  /* ── type scale ── */
+  --type-xs:   11px; --type-sm:  13px; --type-base: 15px;
+  --type-md:   18px; --type-lg:  24px;
+  --type-xl:   clamp(32px,4.5vw,56px);
+  /* ── radius tokens ── */
+  --radius-sm: 8px; --radius-md: 16px; --radius-lg: 28px; --radius-pill: 50px;
+  /* ── motion ── */
+  --ease: cubic-bezier(.4,0,.2,1);
+  --dur:  220ms;
   color-scheme: light;
 }
 @media (prefers-color-scheme: dark) {
@@ -136,41 +148,40 @@ button{font-family:var(--font-b);cursor:pointer;border:none;background:none}
   display:flex;align-items:center;justify-content:space-between;gap:20px;
 }
 .nav-logo{
+  display:flex;align-items:center;gap:10px;
+  white-space:nowrap;
+}
+.nav-logo-icon{
+  width:38px;height:38px;border-radius:10px;
+  background:var(--forest);flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;
+  font-size:18px;line-height:1;
+}
+.nav-logo-wrap{display:flex;flex-direction:column;line-height:1.1}
+.nav-logo-name{
   font-family:var(--font-c);
-  font-size:22px;font-weight:600;
+  font-size:15px;font-weight:600;
   letter-spacing:.10em;text-transform:uppercase;
-  color:var(--ink);white-space:nowrap;
-  display:flex;align-items:center;gap:12px;
+  color:var(--ink);
 }
 .nav-logo-sub{
-  display:block;font-family:var(--font-c);
-  font-size:11px;letter-spacing:.22em;
+  font-size:var(--type-xs);letter-spacing:.18em;
   color:var(--gold);font-weight:400;
-  text-transform:uppercase;margin-top:3px;
+  text-transform:uppercase;margin-top:2px;
 }
-.nav-logo-wrap{display:flex;flex-direction:column;line-height:1}
 .nav-logo em{font-style:normal;color:var(--ink)}
 .nav-links{
   display:flex;align-items:center;gap:8px;
   list-style:none;
 }
 .nav-links a{
-  font-size:12px;font-weight:500;letter-spacing:.08em;
+  font-size:var(--type-xs);font-weight:500;letter-spacing:.08em;
   text-transform:uppercase;
   color:var(--charcoal);
-  padding:8px 14px;border-radius:4px;
-  transition:color .2s;
-  position:relative;
+  padding:8px 12px;border-radius:var(--radius-sm);
+  transition:color var(--dur) var(--ease),background var(--dur) var(--ease);
 }
-.nav-links a:hover{color:var(--gold)}
-.nav-links a::after{
-  content:'';
-  position:absolute;bottom:2px;left:50%;right:50%;
-  height:1px;
-  background:var(--gold);
-  transition:left .25s ease,right .25s ease;
-}
-.nav-links a:hover::after{left:14px;right:14px}
+.nav-links a:hover{color:var(--gold);background:rgba(196,162,75,.08)}
 .nav-right{display:flex;align-items:center;gap:14px}
 .region-wrap{position:relative;display:inline-block}
 .region-badge{
@@ -396,6 +407,23 @@ button{font-family:var(--font-b);cursor:pointer;border:none;background:none}
   cursor:pointer;transition:all .2s;
 }
 .chip:hover,.chip.sel{background:var(--emerald);color:#fff;border-color:var(--emerald)}
+
+/* ── Filter Tabs ─── */
+.filter-tabs{
+  display:flex;flex-wrap:wrap;gap:var(--space-sm);
+  margin-bottom:var(--space-lg);
+}
+.tab{
+  padding:8px 20px;border-radius:var(--radius-pill);
+  font-size:var(--type-xs);font-weight:600;
+  letter-spacing:.06em;text-transform:uppercase;
+  border:1.5px solid rgba(196,162,75,.28);
+  color:var(--charcoal);background:transparent;
+  cursor:pointer;
+  transition:all var(--dur) var(--ease);
+}
+.tab:hover{border-color:var(--gold);color:var(--gold);background:rgba(196,162,75,.06)}
+.tab.active{background:var(--forest);color:#fff;border-color:var(--forest);box-shadow:0 4px 14px rgba(42,92,58,.22)}
 .size-row{display:flex;gap:12px;flex-wrap:wrap}
 .size-opt{
   flex:1;min-width:90px;padding:16px 12px;
@@ -872,9 +900,9 @@ footer{
   <div class="container">
     <div class="inner">
       <a class="nav-logo" href="#">
-        <span style="font-size:30px;line-height:1">🌸</span>
+        <span class="nav-logo-icon">🌸</span>
         <span class="nav-logo-wrap">
-          <span>Nasmat Ward Gifts</span>
+          <span class="nav-logo-name">Nasmat Ward Gifts</span>
           <span class="nav-logo-sub">Flowers &amp; Plants</span>
         </span>
       </a>
@@ -990,7 +1018,14 @@ footer{
       <h2 class="section-h2">Build your bouquet</h2>
       <p class="section-sub">Pick your flowers, pick your size — we cut fresh and deliver the same day across the UAE.</p>
     </div>
-    <div class="builder-grid" style="margin-top:48px">
+    <div class="filter-tabs" style="margin-top:32px">
+      <button class="tab active" onclick="filterCards(this,'all')">All</button>
+      <button class="tab" onclick="filterCards(this,'bouquets')">Bouquets</button>
+      <button class="tab" onclick="filterCards(this,'plants')">Plants</button>
+      <button class="tab" onclick="filterCards(this,'gifts')">Gift Sets</button>
+      <button class="tab" onclick="filterCards(this,'wedding')">Wedding</button>
+    </div>
+    <div class="builder-grid" style="margin-top:16px">
       <div class="builder-steps">
         <!-- Step 1 -->
         <div class="step-card active reveal">
@@ -1562,6 +1597,16 @@ function setRegion(el){
   document.getElementById('region-label').textContent = el.dataset.region;
   regionWrap.classList.remove('open');
   regionToggle.setAttribute('aria-expanded','false');
+}
+
+// ── FILTER TABS ───────────────────────────────────────────
+function filterCards(btn, filter) {
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  btn.classList.add('active');
+  document.querySelectorAll('[data-category]').forEach(card => {
+    const show = filter === 'all' || card.dataset.category === filter;
+    card.style.display = show ? '' : 'none';
+  });
 }
 
 // ── BOUQUET BUILDER ───────────────────────────────────────
